@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='htts://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Jordi Pont-Tuset and Luc Van Gool. Boosting Object Proposals: From Pascal to COCO. ICCV 2015.">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+
+    <title>Boosting Object Proposals &ndash; From Pascal to COCO</title>
+
+    
+    <!--Includes-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.min.js"></script> 
+
+    <style type="text/css">
+    /*********************************
+    The list of publication items
+    *********************************/
+    /* The list of items */
+    .biblist { }
+
+    /* The item */
+    .biblist li { }
+
+    /* You can define custom styles for plstyle field here. */
+
+
+    /*************************************
+     The box that contain BibTeX code
+     *************************************/
+    div.noshow { display: none; }
+    div.bibtex {
+        margin-right: 0%;
+        margin-top: 1.2em;
+        margin-bottom: 1.3em;
+        border: 1px solid silver;
+        padding: 0.3em 0.5em;
+        background: #ffffee;
+    }
+    div.bibtex pre { font-size: 75%; overflow: auto;  width: 100%; }
+</style>
+
+<script type="text/javascript">
+ <!--
+ // Toggle Display of BibTeX
+ function toggleBibtex(articleid) {
+     var bib = document.getElementById('bib_'+articleid);
+     if (bib) {
+         if(bib.className.indexOf('bibtex') != -1) {
+             bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex';
+         }
+     } else {
+         return;
+     }
+ }
+-->
+</script>
+</head>
+
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="coco_analysis_category.html" class="pure-menu-link">Dataset Analysis</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link pure-menu-selected">Code</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Code</h1>
+            <h2>Packages to reproduce this work</h2>
+        </div>
+
+        <div class="content" style="margin-top: 1cm;">
+       The majority of the code can be obtained from the <a href="https://github.com/jponttuset/bop">Github project page</a>, as described in this webpage and in the accompanying publication:
+        <br><br>
+        <div class="pure-g">
+                <div class="pure-u-1-8">
+                    <img class="pure-img-responsive", src="images/PubIcon.png" alt="ICCV2015">
+                </div>
+                <div class="pure-u-7-8">
+                <p style="margin-left:0.6cm;line-height: 1.4em;margin-top:0em;">
+                    <a href="http://jponttuset.github.io">Jordi Pont-Tuset</a> and 
+                    <a href="http://www.vision.ee.ethz.ch/members/get_member.cgi?id=1">Luc Van Gool</a><br>
+                    Boosting Object Proposals: From Pascal to COCO<br>
+                    <i>International Conference on Computer Vision (ICCV) 2015</i><br>
+                    [<a href="data/PontTusetVanGool-Boosting-ICCV2015.pdf" target="_blank">PDF</a>] [<a href="javascript:toggleBibtex('PTVG2015')">BibTex</a>]
+                </p>
+                </div>
+            </div>
+            <div id="bib_PTVG2015" class="bibtex noshow"><pre>@inproceedings{PTVG2015,<br/>  author = {Pont-Tuset, J. and Van Gool, L.},<br/>  title = {Boosting Object Proposals: From Pascal to COCO},<br/>  booktitle = {International Conference on Computer Vision},<br/>  year = {2015}<br/>}</pre></div>
+<br>
+
+        The benchmark of object proposal techniques is based on the <a href="https://github.com/jponttuset/mcg">MCG Benchmark toolbox</a>, as described in:
+        <br><br>
+        <div class="pure-g">
+                <div class="pure-u-1-8">
+                    <img class="pure-img-responsive", src="images/example_arxiv2.png" alt="MCG">
+                </div>
+                <div class="pure-u-7-8">
+
+
+
+                <p style="margin-left:0.6cm;line-height: 1.4em;margin-top:0em;">
+                    <a href="http://jponttuset.github.io" target="_blank" rel="external">Jordi Pont-Tuset</a>*, <a href="http://www.cs.berkeley.edu/~arbelaez/" target="_blank" rel="external">Pablo Arbelaez</a>*, <a href="http://www.cs.berkeley.edu/~barron/" target="_blank" rel="external">Jonathan T. Barron</a>, <a href="https://imatge.upc.edu/web/ferran" target="_blank" rel="external">Ferran Marques</a>, <a href="http://www.cs.berkeley.edu/~malik/" target="_blank" rel="external">Jitendra Malik</a><br>
+                    Multiscale Combinatorial Grouping for Image Segmentation and Object Proposal Generation<br>
+                    <i>Pattern Analysis and Machine Intelligence (PAMI), 2016</i><br>
+                    [<a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/mcg/" target="_blank">Project Page</a>]
+                    [<a href="http://arxiv.org/abs/1503.00848" target="_blank" rel="external">arXiv</a>]
+                    [<a href="javascript:toggleBibtex('PABMM2015')">BibTeX</a>]
+                </p>
+                </div>
+            </div>
+
+            <div id="bib_PABMM2015" class="bibtex noshow"><pre>@article{PABMM2015,<br/>  author = {Pont-Tuset, J. and Arbel\'{a}ez, P. and Barron, J. and Marques, F. and Malik, J.},<br/>  title = {Multiscale Combinatorial Grouping for Image Segmentation and Object Proposal Generation},<br/>  journal = {Pattern Analysis and Machine Intelligence (PAMI)},<br/>  year = {2016}<br/>}</pre>
+            </div>
+        <br>
+        Please cite the corresponding papers if you use the code.
+        <br>
+        <br>
+
+        You can also browse the <a href="soa_compare_pre_computed.html">pre-computed results</a> to compare to all the state-of-the-art techniques analyzed in this work. 
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="js/ui.js"></script>
+
+
+</body>
+
+</html>
+
+

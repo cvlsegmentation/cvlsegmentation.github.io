@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Jordi Pont-Tuset and Luc Van Gool. Boosting Object Proposals: From Pascal to COCO. ICCV 2015.">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+    <!-- Buttons -->
+    <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+
+    <title>Boosting Object Proposals &ndash; From Pascal to COCO</title>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66736701-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+</head>
+
+<style>
+
+table {text-align:right;}
+td{padding-bottom:2px;padding-top:2px;}
+
+.domain {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+.tick line{
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.d3-tip {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1;
+  //font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="coco_analysis_category.html" class="pure-menu-link pure-menu-selected">Dataset Analysis</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link">Code</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Dataset Analysis</h1>
+            <h2>Analyzing the Statistical Properties of the Segmented Annotations</h2>
+        </div>
+
+        <div style="margin: auto;max-width: 1200px;">
+            <div style="font-family: 'Raleway', sans-serif;margin-left:15px;margin-right:10px;">
+
+            <!-- Buttons  -->
+            <div class="pure-g">
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                    <button class="btn btn-6 btn-6a" style="color: #6b7770;background: #e7eae8;width: 95%;margin-top:30px;">Category Distribution</button>
+                </div>
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">
+                    <a href="coco_analysis.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Spatial Distribution</button></a>
+                </div>
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                    <a href="coco_analysis_area.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Area Distribution</button></a>
+                </div>
+            </div>
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Category Distribution of Annotations</h3>
+            We compute the percentage of object instances in each category (and COCO super-categories).
+            To display different number of categories in the same plot, we compute the accumulated frequency of all sorted categories so that
+            all plots go from 0 to 100%. Put the mouse on the plot points to see the name of the category that represents and its frequency.
+            We also show the global sizes of the databases in a table. 
+            <div class="pure-g">
+                <div id="plot_categ_distrib" class="pure-u-1-2" style="font-family: 'Raleway', sans-serif;">
+                </div>
+                <div id="plot_categ_distrib" class="pure-u-1-2" style="font-family: 'Raleway', sans-serif;">
+            <table style="margin-left:50px;margin-top:100px;">
+              <col width="50">
+              <col width="100">
+              <col width="108">
+              <col width="135">
+              <tr style="border-bottom: 2px solid grey;">
+                <td></td>
+                <td style="border-top: 2px solid grey;">#Categories</td>
+                <td style="border-top: 2px solid grey;">#Images</td>
+                <td style="border-top: 2px solid grey; padding-right: 10px;">#Instances</td>
+              </tr>
+              <tr>
+                <td style="padding-left: 10px;">Pascal</td>
+                <td>20</td>
+                <td>2913</td> 
+                <td style="padding-right: 10px;">6934</td> 
+              </tr>
+              <tr style = "font-style: italic;font-size: 80%;">
+                <td style="padding-left: 15px;">Train+Val</td>
+                <td></td>
+                <td>1464+1449</td> 
+                <td style="padding-right: 10px;">3507+3427</td> 
+              </tr>
+              <tr style="border-top: 1px solid grey;">
+                <td style="padding-left: 10px;">SBD</td>
+                <td>20</td> 
+                <td>11355</td> 
+                <td style="padding-right: 10px;">26843</td> 
+              </tr>
+              <tr style = "font-style: italic;font-size: 80%;">
+                <td style="padding-left: 15px;">Train+Val</td>
+                <td></td>
+                <td>8498+2587</td> 
+                <td style="padding-right: 10px;">20172+6671</td> 
+              </tr>
+              <tr style="border-top: 1px solid grey;">
+                <td style="padding-left: 10px;">COCO</td>
+                <td>80</td> 
+                <td>123287</td> 
+                <td style="padding-right: 10px;">886284</td> 
+            </tr>
+              <tr  style="border-bottom: 2px solid grey; font-style: italic;font-size: 80%;">
+                <td style="padding-left: 15px;">Train+Val</td>
+                <td></td>
+                <td>82783+40504</td> 
+                <td style="padding-right: 10px;">597869+288415</td> 
+              </tr>
+            </table>
+                </div>
+
+
+
+
+
+            </div>
+            In the three databases, <i>person</i> is by far the most common category (around 25-30%).
+            In COCO, this is especially exaggerated, being the second category at 5%, 59 categories having less than 1% of the objects,
+            and 20 less than 0.5%.
+            Pascal and SBD categories, and especially super-categories in COCO, are more balanced.
+
+
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Discussion</h3>
+            Would you like to discuss something about these results? Let us know below!
+            <div id="disqus_thread" style="margin-top:10px;"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = 'objectproposals';
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            </div>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+<!-- load the d3.js library -->    
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.min.js"></script> 
+<script>
+
+    // ##############################################################################
+    //  Function to plot 
+    // ##############################################################################
+    function do_area_plot(div_id)
+    {
+        function plot_line(svg_canvas, file, tipname, color, thickness)
+        {
+            var filename = "data/class_distrib/"+file+".txt";
+            d3.tsv(filename, function(error, data)
+            {
+              //Mouseover tip
+              var tip = d3.tip()
+                  .attr('class', 'd3-tip')
+                  .style("font-size", "14px") 
+                  .offset([-10, 0])
+                  .html(function(d) {
+                    return tipname + "<br>"+d.CategName+" ("+parseFloat(d.Percent).toFixed(2)+"%)";
+                  });
+
+              svg_canvas.call(tip);
+
+              // Add the valueline path.
+              svg_canvas.append("path")
+                  .attr("class", "line")
+                  .attr("d", valueline(data))
+                  .datum(data)
+                  .style("stroke", color)
+                  .style("stroke-width", thickness)
+                  .style("fill", "none");
+
+              svg_canvas.selectAll(".dot")
+                  .data(data)
+                  .enter().append("circle")
+                  .attr('cx', function(d) { return x(d.AccPercent); })
+                  .attr('cy', function(d) { return y(d.Percent); })
+                  .attr('r', 3)
+                  .attr('opacity', '1')
+                  .style("fill",color)
+                  .attr('stroke-width', '3')
+                  .on('mouseover', tip.show)
+                  .on('mouseout', tip.hide);
+            });
+        }
+
+
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 30, right: 10, bottom: 60, left: 51},
+            width  = parseInt(d3.select(div_id).style('width')),
+            width  = width - margin.left - margin.right,
+            height = 400,
+            height = height - margin.top - margin.bottom;
+        
+        // Set the ranges
+        var x = d3.scale.linear().range([0, width]).domain([0, 100]);
+        var y = d3.scale.linear().range([height, 0]).domain([0, 32]);;
+
+        // Define the axes
+        var xAxis = d3.svg.axis().scale(x)
+            .innerTickSize(-height)
+            .outerTickSize(0)
+            .tickPadding(23)
+            .orient("bottom").ticks(20);
+
+        var x2Axis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("").ticks(20);
+
+        var yAxis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickPadding(25)
+            .orient("left").ticks(10);
+
+
+        var y2Axis = d3.svg.axis().scale(y)
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("")
+            .orient("left").ticks(10);
+
+        var y3Axis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickFormat("")
+            .orient("left").ticks(40);
+
+
+        // Define the line
+        var valueline = d3.svg.line()
+            .x(function(d) { return x(d.AccPercent); })
+            .y(function(d) { return y(d.Percent); });
+
+        // Clear previous plot (if any)
+        d3.select(div_id)
+          .selectAll("svg")
+          .remove();
+
+        // Adds the svg canvas
+        var svg = d3.select(div_id)
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", 
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+          .selectAll("text")
+            .attr("dy", "9px")
+            .attr("dx", "5px")
+            .style("text-anchor", "end");
+
+
+        svg.selectAll("g.x.axis line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+        svg.selectAll("g.x.axis path")
+            .style("display", "none")
+
+        // Add the Y Axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-10")
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Frequency (%)");
+
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(y3Axis);
+
+        svg.selectAll("g.y.axis g.tick line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+
+        svg.selectAll("g.y.axis path")
+            .style("display", "none")
+
+        svg.selectAll("g.y.axis text")
+            .style("font-size","small");
+
+        svg.selectAll("g.x.axis text")
+            .style("font-size","small");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height+15) + ")")
+            .call(x2Axis)
+          .append("text")
+            .attr("x", width)
+            .attr("dx", -1)
+            .attr("dy", -4)
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Accumulated Frequency (%)");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-17,0)")
+            .call(y2Axis);
+
+
+        // ************ Plot all lines ************
+        var legend_names = ["Pascal", "SBD", "COCO", "COCO Super-Categories"];
+        var legend_colors = ["black", "orangered", "limegreen", "rebeccapurple"];
+
+        plot_line(svg, "ClassDistrib_Pascal_Segmentation_train_2012", "Pascal", "black",2.5);
+        plot_line(svg, "ClassDistrib_SBD_train", "SBD", "orangered",2.5);
+        plot_line(svg, "ClassDistrib_COCO_train2014", "COCO", "limegreen",2.5);
+        plot_line(svg, "SuperClassDistrib_COCO_train2014", "COCO Super-Categories", "rebeccapurple",2.5);
+
+
+        // This method to "hide" lines does not work because of asynchrony of tsv
+        // svg.append("rect")
+        //       .attr("transform", "translate(" + width + ",0)")
+        //       .attr("width", 10)
+        //       .attr("height", height)
+        //       .style("fill","white")
+        //       .style("opacity",1)
+        //       .style("stroke","black")
+        //       .attr("id", "legend_rect");
+
+        // ************ Static Legend ************
+        legend_width = 200; 
+        legend_height = 15+15*legend_names.length;
+        delta_x = 100;
+        delta_y = 50;
+
+        var legend = svg.append("g")
+                        .attr("transform", "translate(" + delta_x + "," + delta_y +")")
+                        .attr("id", "legend")
+
+        legend.append("rect")
+              .attr("width", legend_width)
+              .attr("height", legend_height)
+              .style("fill","white")
+              .style("opacity",0.95)
+              .style("stroke","black")
+              .attr("id", "legend_rect");
+
+        for (var ii = 0; ii < legend_names.length; ii++)
+        { 
+          legend.append("circle")
+                .attr("r", 3)
+                .attr("cx", 13)
+                .attr("cy", (ii+1)*15)
+                .style("fill", legend_colors[ii]);
+
+          legend.append("text")
+                .attr("x", 23)
+                .attr("y", (ii+1)*15)
+                .attr("dy", ".35em")
+                .text(legend_names[ii])
+                .style("font-size", "small");
+        }
+    }
+    // ##############################################################################
+
+
+
+    // ##############################################################################
+    //  Call actual functions on startup and on resize
+    // ##############################################################################
+    d3.select(window).on('resize', resize); 
+    function resize() {
+      do_area_plot("#plot_categ_distrib")
+    }
+    
+    do_area_plot("#plot_categ_distrib")
+
+
+    // ##############################################################################
+
+</script>
+
+<script src="js/ui.js"></script>
+
+
+</body>
+
+</html>
+
+

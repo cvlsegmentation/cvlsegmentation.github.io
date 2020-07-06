@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Jordi Pont-Tuset and Luc Van Gool. Boosting Object Proposals: From Pascal to COCO. ICCV 2015.">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+    <!-- Buttons -->
+    <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+
+
+    <title>Boosting Object Proposals &ndash; From Pascal to COCO</title>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66736701-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    
+<style> /* set the CSS */
+/*
+path { 
+    stroke: steelblue;
+    stroke-width: 3;
+    fill: none;
+}*/
+
+.axis path{
+    fill: none;
+    stroke: black;
+    stroke-width: 2;
+    shape-rendering: crispEdges;
+}
+
+.axis line {
+    fill: none;
+    stroke: black;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.d3-tip {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1;
+  //font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+</head>
+
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="coco_analysis_category.html" class="pure-menu-link">Dataset Analysis</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link pure-menu-selected">Benchmark SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link">Code</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>State-of-the-Art Object Proposal Benchmark</h1>
+            <h2>Quantitative evaluation of the current object proposal techniques</h2>
+        </div>
+
+        <div style="margin: auto;max-width: 1200px;">
+            <div style="font-family: 'Raleway', sans-serif;margin-left:15px;margin-right:10px;">
+            
+            
+        <!-- Buttons  -->
+        <div class="pure-g">
+            <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">
+                <button class="btn btn-6 btn-6a" style="color: #6b7770;background: #e7eae8;width: 95%;margin-top:30px;">Global Comparison</button>
+            </div>
+            <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                <a href="soa_compare_per_class.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Per-Category Comparison</button></a>
+            </div>
+            <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                <a href="soa_compare_params.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Scripts and Parameterization</button></a>
+            </div>
+             <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                <a href="soa_compare_pre_computed.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Pre-Computed Results</button></a>
+            </div>   
+        </div>
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Average Best Overlap</h3>
+        This measure first gets the best proposal for each annotated object, computes the Jaccard index (or Overlap,
+        or Intersection over Union) between the best proposal and the groud truth and performs the mean over all objects.
+        We plot this value with respect to the mean number of proposals in all images. Put the mouse on top of some point to see the details.
+        <div class="pure-g">
+            <div id="plot_abo_1" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+            </div>
+            <div id="plot_abo_2" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+            </div>
+            <div id="plot_abo_3" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+            </div>
+        </div>
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Object Recall</h3>
+        As before, we first get the best proposal for each annotated object and we compute the Jaccard index between the best proposal
+        and the groud truth. We then count the percentage of objects for which the best proposal's Jaccard (Intersection over Union) is above a certain threshold T.
+        As a summary value, we compute the average recall for different T from 0.5 to 0.95.<br>
+        Please choose which type of recall to show: 
+        <select id="my_selection" style="font-family: 'Raleway', sans-serif;" onchange="selection_change(this);">
+            <option value="average_recall">Average Recall</option>
+            <option value="rec_at_0.5">Recall at 0.5</option>
+            <option value="rec_at_0.7">Recall at 0.7</option>
+            <option value="rec_at_0.85">Recall at 0.85</option>
+        </select>
+        <div class="pure-g">
+            <div id="plot_recall_1" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+            </div>
+            <div id="plot_recall_2" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+            </div>
+            <div id="plot_recall_3" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+            </div>
+        </div>
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Notes</h3>
+        <ul>
+        <li><b>Solid lines</b> represent ranked proposals methods, i.e., you can generate them once, and then pick the top N.</li>
+        <li><b>Dashed lines joining points</b> represent methods that have to be run with different parameterizations to get different number of proposals.</li>
+        <li><b>Isolated points</b> where methods run only for one parameterization.</li>
+        <li><b>Dashed lines without points</b> represent baseline methods.</li>
+      </ul>
+
+
+
+
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Legend</h3>
+        <ul>
+        <li><b>SharpMaskRegions</b>: Learning to Refine Object Segments, <i>P. O. Pinheiro</i>, <i>T-Y Lin</i>, <i>R. Collobert</i>, and <i>P. Dollár</i>, ECCV 2016.</li>
+        <li><b>DeepMaskRegions</b>: Learning to Segment Object Candidates, <i>P. O. Pinheiro</i>, <i>R. Collobert</i>, and <i>P. Dollár</i>, NIPS 2015.</li>
+        <li><b>COB</b>: Convolutional Oriented Boundaries, <i>K.K. Maninis</i>, <i>J. Pont-Tuset</i>, <i>P. Arbeláez</i>, and <i>L. Van Gool</i>, ECCV 2016.</li>
+        <li><b>POISE</b>: The Middle Child Problem: Revisiting Parametric Min-cut and Seeds for Object Proposals, <i>A. Humayun</i>, <i>F. Li</i>, and <i>J.M. Rehg</i>, ICCV 2015.</li>
+        <li><b>MCG</b> and <b>SCG</b>: Multiscale Combinatorial Grouping, <i>P. Arbeláez</i>, <i>J. Pont-Tuset</i>, <i>J. Barron</i>, <i>F. Marques</i>, and <i>J. Malik</i>, CVPR 2014.</li>
+        <li><b>LPO</b>: Learning to Propose Objects, <i>P. Krähenbühl</i>, and <i>V. Koltun</i>, CVPR 2015.</li>
+        <li><b>GOP</b>: Geodesic Object Proposals, <i>P. Krähenbühl</i>, and <i>V. Koltun</i>, ECCV 2014.</li>
+        <li><b>GLS</b>: Generating Object Segmentation Proposals using Global and Local Search, <i>P. Rantalankila</i>, <i>J. Kannala</i>, and <i>E. Rahtu</i>, CVPR 2014.</li>
+        <li><b>RIGOR</b>: Recycling Inference in Graph Cuts for generating Object Regions, <i>A. Humayun</i>, <i>F. Li</i>, and <i>J.M. Rehg</i>, CVPR 2014.</li>
+        <li><b>SeSe</b>: Selective Search for Object Recognition, <i>J.R.R. Uijlings</i>, <i>K.E.A. van de Sande</i>, <i>T. Gevers</i>, and <i>A.W.M. Smeulders</i>, IJCV 2013.</li>
+        <li><b>QT</b>: Baseline method consisting in a homogenous Quad-Tree, regardless of the image content.
+        </ul>
+        Is your technique missing although it's published and the code is public? <a href="contact.html">Let us know</a> and we'll add it.
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Discussion</h3>
+        Would you like to discuss something about the evaluation? Let us know below!
+        <div id="disqus_thread" style="margin-top:10px;"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES * * */
+            var disqus_shortname = 'objectproposals';
+            
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        </div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>
+</div>
+
+
+
+<!-- load the d3.js library -->    
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.min.js"></script> 
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<!-- <script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script> 
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>  -->
+
+
+<script>
+    var superscript = "⁰¹²³⁴⁵⁶⁷⁸⁹",
+        formatPower = function(d) { return (d + "").split("").map(function(c) { return superscript[c]; }).join(""); };
+
+    var measure_show_names_short = {"abo": "ABO", "average_recall": "AR", "rec_at_0.5": "OR@0.5", "rec_at_0.7": "OR@0.7", "rec_at_0.85": "OR@0.85"}; 
+    var measure_show_names_long = {"abo": "Average Best Overlap", "average_recall": "Average Recall", "rec_at_0.5": "Object Recall @ 0.5", "rec_at_0.7": "Object Recall @ 0.7", "rec_at_0.85": "Object Recall @ 0.85"}; 
+
+    // Which techniques to show
+    var techniques = {"Pascal": [                                     "COB", "MCG", "POISE", "LPO", "SCG", "GOP", "RIGOR", "GLS", "SeSe", "QT"],
+                      "SBD"   : [                                     "COB", "MCG", "POISE", "LPO", "SCG", "GOP", "RIGOR", "GLS", "SeSe", "QT"],
+                      "COCO"  : ["SharpMaskRegions","DeepMaskRegions","COB", "MCG", "POISE", "LPO", "SCG", "GOP", "RIGOR", "GLS", "SeSe", "QT"]};
+    // Plot styles
+    techn_plot_styles =
+                 {"COB":   {"color": "black",
+                            "type" : "line",
+                            "style": "solid"},
+                  "DeepMaskRegions":   {"color": "LightBlue",
+                            "type" : "line",
+                            "style": "solid"},
+                  "SharpMaskRegions":   {"color": "RoyalBlue",
+                            "type" : "line",
+                            "style": "solid"},
+                  "MCG":   {"color": "orangered",
+                            "type" : "line",
+                            "style": "solid"},
+                  "SCG":   {"color": "orange",
+                            "type" : "line",
+                            "style": "solid"}, 
+                  "LPO":   {"color": "magenta",
+                            "type" : "marker",
+                            "marker_type" : "circle",
+                            "marker_size" : 45}, 
+                  "GOP":   {"color": "gray",
+                            "type" : "marker",
+                            "marker_type" : "diamond",
+                            "marker_size" : 35}, 
+                  "POISE": {"color": "cadetblue",
+                            "type" : "markerandline",
+                            "style": "dashed",
+                            "marker_type" : "square",
+                            "marker_size" : 30},            
+                  "RIGOR": {"color": "limegreen",
+                            "type" : "marker",
+                            "marker_type" : "square",
+                            "marker_size" : 45},  
+                  "GLS":   {"color": "lightskyblue",
+                            "type" : "marker",
+                            "marker_type" : "triangle-down",
+                            "marker_size" : 35}, 
+                  "SeSe":  {"color": "rebeccapurple",
+                            "type" : "marker",
+                            "marker_type" : "triangle-up",
+                            "marker_size" : 35},
+                  "QT":    {"color": "grey",
+                            "type" : "line",
+                            "style": "dashed"},
+                          };
+
+    function selection_change(sel)
+    {
+        do_one_plot("#plot_recall_1", sel.value, "Pascal", "Segmentation_val_2012");
+        do_one_plot("#plot_recall_2", sel.value, "SBD"   , "val"    );
+        do_one_plot("#plot_recall_3", sel.value, "COCO"  , "val2014");
+    }
+
+    function do_one_plot(div_id, measure_name, database, gt_set)
+    {
+         function plot_one(svg_canvas, technique, database, gt_set)
+        {
+            var filename = "data/global_eval/"+database+"_"+gt_set+"_"+technique+".txt";
+            d3.tsv(filename, function(error, data)
+            {
+              //Mouseover tip
+              var tip = d3.tip()
+                  .attr('class', 'd3-tip')
+                  .style("font-size", "14px") 
+                  .offset([-10, 0])
+                  .html(function(d) {
+                    return technique+"<br>#prop="+parseFloat(d.ncands).toFixed(0)+"<br>"+measure_show_names_short[measure_name]+"="+parseFloat(d[measure_name]).toFixed(3);
+                  });
+
+              svg_canvas.call(tip);
+
+              var plot_style = techn_plot_styles[technique];
+              if (plot_style.type == "line" || plot_style.type == "markerandline")
+              { 
+                // Add the valueline path.
+                if (plot_style.style=="dashed")
+                {
+                  svg_canvas.append("path")
+                      .attr("class", "line")
+                      .attr("d", valueline(data))
+                      .style("stroke", plot_style.color)
+                      .style("stroke-width", 2)
+                      .style("fill", "none")
+                      .style("stroke-dasharray", "5,5");
+                }
+                else
+                {
+                  svg_canvas.append("path")
+                      .attr("class", "line")
+                      .attr("d", valueline(data))
+                      .style("stroke", plot_style.color)
+                      .style("stroke-width", 2)
+                      .style("fill", "none");
+                }
+                                        
+
+                svg_canvas.selectAll(".dot")
+                  .data(data)
+                  .enter().append("circle")
+                  .attr('cx', function(d) { return x(d.ncands); })
+                  .attr('cy', function(d) { return y(d[measure_name]); })
+                  .attr('r', 4)
+                  .attr('opacity', '0')
+                  .attr('stroke-width', '3')
+                  .on('mouseover', tip.show)
+                  .on('mouseout', tip.hide);
+              }
+              
+              if (plot_style.type == "marker" || plot_style.type == "markerandline")
+              {
+                // Add the valueline path.
+                svg_canvas.append("path")
+                    .attr('opacity', '0')
+                    .attr("d", valueline(data));
+
+                svg_canvas.selectAll(".point")
+                    .data(data)
+                    .enter().append("path")
+                    .attr("d", d3.svg.symbol().type(plot_style.marker_type).size(plot_style.marker_size))
+                    .attr("transform", function(d) { return "translate(" + x(d.ncands) + "," + y(d[measure_name]) + ")"; })
+                    .style("stroke", plot_style.color)
+                    .style("stroke-width", 1.5)
+                    .style("fill", "white")
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide);
+              }
+            });
+        }
+
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 30, right: 10, bottom: 35, left: 48},
+            width  = parseInt(d3.select(div_id).style('width')),
+            width  = width - margin.left - margin.right,
+            height = 600,
+            height = height - margin.top - margin.bottom;
+        
+        // Set the ranges
+        var x = d3.scale.log().range([0, width]);
+        var y = d3.scale.linear().range([height, 0]);
+
+        // Define the axes
+        var xAxis = d3.svg.axis().scale(x)
+            .innerTickSize(-height)
+            .outerTickSize(0)
+            .tickPadding(23)
+            .orient("bottom").ticks(3, function(d) { return 10 + formatPower(Math.round(Math.log(d) / Math.LN10)); }); // Labels down the line
+
+        var x2Axis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("");
+
+        var yAxis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickPadding(25)
+            .orient("left").ticks(10);
+
+
+        var y2Axis = d3.svg.axis().scale(y)
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("")
+            .orient("left").ticks(10);
+
+        var y3Axis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickFormat("")
+            .orient("left").ticks(50);
+
+
+        // Define the line
+        var valueline = d3.svg.line()
+            .x(function(d) { return x(d.ncands); })
+            .y(function(d) { return y(d[measure_name]); });
+
+        // Clear previous plot (if any)
+        d3.select(div_id)
+          .selectAll("svg")
+          .remove();
+
+        // Adds the svg canvas
+        var svg = d3.select(div_id)
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", 
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+        // d3.selectAll('g.tick')
+        //   .filter(function(d){ return d==50;} )
+        //    //only ticks that returned true for the filter will be included
+        //    //in the rest of the method calls:
+        //   .select('line') //grab the tick line
+        //   .attr('class', 'quadrantBorder') //style with a custom class and CSS
+        //   .style('stroke-width', 5); //or style directly with attributes or inline styles
+
+
+
+        // Adapt the domain of the data (limits)
+        x.domain([50, 20100]);
+        y.domain([0, 1]);
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+          .append("text")
+            .attr("x", width)
+            .attr("dx", -1)
+            .attr("dy", 11)
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Number of Proposals");
+          
+        svg.selectAll("g.x.axis line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+        svg.selectAll("g.x.axis path")
+            .style("display", "none")
+
+        // Add the Y Axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-10")
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text(measure_show_names_long[measure_name]);
+
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(y3Axis);
+
+        svg.selectAll("g.y.axis g.tick line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+
+        svg.selectAll("g.y.axis path")
+            .style("display", "none")
+
+        svg.selectAll("g.y.axis text")
+            .style("font-size","small");
+
+        svg.selectAll("g.x.axis text")
+            .style("font-size","small");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height+15) + ")")
+            .call(x2Axis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-17,0)")
+            .call(y2Axis);
+
+        // Get the data
+        for (var ii = 0; ii < techniques[database].length; ii++)
+            plot_one(svg, techniques[database][ii], database, gt_set);
+
+        // d3.selectAll("g.y.axis g.tick line")
+        // .attr("x2", function(d){
+        //     //d for the tick line is the value
+        //     //of that tick 
+        //     //(a number between 0 and 1, in this case)
+        //    if ( (10*d)%2 ) //if it's an even multiple of 10%
+        //        return 10;
+        //    else
+        //        return 4;
+        // });
+        svg.append("text")
+            .attr("x", (width / 2))             
+            .attr("y", 0 - (margin.top / 4))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "15px") 
+            .text(database+"-"+gt_set);
+
+    }
+
+
+    d3.select(window).on('resize', resize); 
+
+    function resize() {
+
+        do_one_plot("#plot_abo_1", "abo", "Pascal", "Segmentation_val_2012")
+        do_one_plot("#plot_abo_2", "abo", "SBD"   , "val"    )
+        do_one_plot("#plot_abo_3", "abo", "COCO"  , "val2014")
+        
+        var sel = document.getElementById('my_selection');
+        var sv = sel.options[sel.selectedIndex].value;
+
+        do_one_plot("#plot_recall_1", sv, "Pascal", "Segmentation_val_2012")
+        do_one_plot("#plot_recall_2", sv, "SBD"   , "val"    )
+        do_one_plot("#plot_recall_3", sv, "COCO"  , "val2014")
+    }
+
+    do_one_plot("#plot_abo_1", "abo", "Pascal", "Segmentation_val_2012")
+    do_one_plot("#plot_abo_2", "abo", "SBD"   , "val"    )
+    do_one_plot("#plot_abo_3", "abo", "COCO"  , "val2014")
+        
+    do_one_plot("#plot_recall_1", "average_recall", "Pascal", "Segmentation_val_2012")
+    do_one_plot("#plot_recall_2", "average_recall", "SBD"   , "val"    )
+    do_one_plot("#plot_recall_3", "average_recall", "COCO"  , "val2014")
+</script>
+
+
+<script src="js/ui.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+</html>
+
+

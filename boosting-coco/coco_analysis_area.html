@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Jordi Pont-Tuset and Luc Van Gool. Boosting Object Proposals: From Pascal to COCO. ICCV 2015.">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+    <!-- Buttons -->
+    <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+
+    <title>Boosting Object Proposals &ndash; From Pascal to COCO</title>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66736701-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+</head>
+
+
+<style>
+.domain {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+.tick line{
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+</style>
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="coco_analysis_category.html" class="pure-menu-link pure-menu-selected">Dataset Analysis</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link">Code</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Dataset Analysis</h1>
+            <h2>Analyzing the Statistical Properties of the Segmented Annotations</h2>
+        </div>
+
+        <div style="margin: auto;max-width: 1200px;">
+            <div style="font-family: 'Raleway', sans-serif;margin-left:15px;margin-right:10px;">
+
+            <!-- Buttons  -->
+            <div class="pure-g">
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                    <a href="coco_analysis_category.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Category Distribution</button></a>
+                </div>
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">
+                    <a href="coco_analysis.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Spatial Distribution</button></a>
+                </div>
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                    <button class="btn btn-6 btn-6a" style="color: #6b7770;background: #e7eae8;width: 95%;margin-top:30px;">Area Distribution</button>
+                </div>
+            </div>
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Area Distribution of Annotations and Proposals</h3>
+            We analyze the distibution of the are of the annotations. To do so, we compute the cumulative density function
+            as the percentage of objects that are smaller than a certain percentage of the image area. 
+            <div class="pure-g">
+                <div id="plot_area_distrib_1" class="pure-u-1-2" style="font-family: 'Raleway', sans-serif;">
+                </div>
+                <div id="plot_area_distrib_2" class="pure-u-1-2" style="font-family: 'Raleway', sans-serif;">
+                </div>
+            </div>
+            The left plot shows that indeed the majority of objects in the three databases are small (above the uniform distribution),
+            and that COCO has the most pronounced bias.
+            To put a particular example, the dashed gray line highlights that while 50% of Pascal
+            objects are below 5% of area, in COCO 80% of the annotated objects are below this
+            threshold.
+            In the other axis, the percentile 80% is at 20% of the area for Pascal and at 5% for COCO.
+            <br>
+            <br>
+            In the right plot we can observe significant differences between techniques,
+            illustrated for instance by the percentage of 
+            proposals whose area is below 5% of the image area:
+            73% in case of GOP and 34% for GLS.
+            In all cases, the percentage of small objects is even more significant in COCO, although GOP gets close.
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Discussion</h3>
+            Would you like to discuss something about these results? Let us know below!
+            <div id="disqus_thread" style="margin-top:10px;"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = 'objectproposals';
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            </div>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+<!-- load the d3.js library -->    
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.min.js"></script> 
+<script>
+
+    // ##############################################################################
+    //  Function to plot
+    // ##############################################################################
+    function do_area_plot(div_id)
+    {
+        function plot_line(svg_canvas, technique, color, thickness)
+        {
+            var filename = "data/area_distrib/AreaDistrib_"+technique+".txt";
+            d3.tsv(filename, function(error, data)
+            {
+              // Add the valueline path.
+              svg_canvas.append("path")
+                  .attr("class", "line")
+                  .attr("d", valueline(data))
+                  .datum(data)
+                  .attr("id", 'line_' + technique)
+                  .style("stroke", color)
+                  .style("stroke-width", thickness)
+                  .style("fill", "none")
+              // .on("mouseover", function() {
+              //     svg.select("#vertical_line").style("display", null);
+              //     svg.select("#legend").attr("display", "none");
+              //     svg.select("#tooltip").attr("display", null);
+              //     for (var ii = 0; ii < techniques.length; ii++)
+              //     { svg.select("#marker_" + techniques[ii]).style("display", null); }})
+              // .on("mouseout", function() {
+              //     svg.select("#vertical_line").style("display", "none");
+              //     svg.select("#legend").attr("transform", "translate(20,10)");
+              //     svg.select("#legend").attr("display", null);
+              //     svg.select("#tooltip").attr("display", "none");
+              //     for (var ii = 0; ii < techniques.length; ii++)
+              //     { svg.select("#marker_" + techniques[ii]).style("display", "none"); }})
+              //.on("mousemove", mousemove)
+              //.on("click", mouseclick);
+            });
+        }
+
+
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 30, right: 10, bottom: 97, left: 51},
+            width  = parseInt(d3.select(div_id).style('width')),
+            width  = width - margin.left - margin.right,
+            height = 500,
+            height = height - margin.top - margin.bottom;
+        
+        // Set the ranges
+        var x = d3.scale.linear().range([0, width]).domain([0, 60]);
+        var y = d3.scale.linear().range([height, 0]).domain([0, 100]);;
+
+        // Define the axes
+        var xAxis = d3.svg.axis().scale(x)
+            .innerTickSize(-height)
+            .outerTickSize(0)
+            .tickPadding(23)
+            .orient("bottom").ticks(20);
+
+        var x2Axis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("").ticks(20);
+
+        var yAxis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickPadding(25)
+            .orient("left").ticks(10);
+
+
+        var y2Axis = d3.svg.axis().scale(y)
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("")
+            .orient("left").ticks(10);
+
+        var y3Axis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickFormat("")
+            .orient("left").ticks(50);
+
+
+        // Define the line
+        var valueline = d3.svg.line()
+            .x(function(d) { return x(d.X); })
+            .y(function(d) { return y(d.F); });
+
+        // Clear previous plot (if any)
+        d3.select(div_id)
+          .selectAll("svg")
+          .remove();
+
+        // Adds the svg canvas
+        var svg = d3.select(div_id)
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", 
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+          .selectAll("text")
+            .attr("dy", "9px")
+            .attr("dx", "5px")
+            .style("text-anchor", "end");
+
+
+        svg.selectAll("g.x.axis line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+        svg.selectAll("g.x.axis path")
+            .style("display", "none")
+
+        // Add the Y Axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-10")
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Area Cumulative Density Function (%)");
+
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(y3Axis);
+
+        svg.selectAll("g.y.axis g.tick line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+
+        svg.selectAll("g.y.axis path")
+            .style("display", "none")
+
+        svg.selectAll("g.y.axis text")
+            .style("font-size","small");
+
+        svg.selectAll("g.x.axis text")
+            .style("font-size","small");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height+15) + ")")
+            .call(x2Axis)
+          .append("text")
+            .attr("x", width)
+            .attr("dx", -1)
+            .attr("dy", -4)
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Percentage of the Image Area");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-17,0)")
+            .call(y2Axis);
+
+
+        // ************ Plot all lines ************
+        var legend_names;
+        var legend_colors;
+        if (div_id=="#plot_area_distrib_1")
+        {
+            svg.append("line")
+               .attr({
+                  "x1": 5*width/60,
+                  "y1": 0,
+                  "x2": 5*width/60,
+                  "y2": height})
+               .style("stroke","grey")
+               .style("stroke-dasharray","5,5");
+
+            svg.append("line")
+               .attr({
+                  "x1": 0,
+                  "y1": 19*height/100,
+                  "x2": width,
+                  "y2": 19*height/100})
+               .style("stroke","grey")
+               .style("stroke-dasharray","5,5");
+
+
+            legend_names = ["COCO", "SBD", "Pascal", "Uniform"];
+            legend_colors = ["black", "red", "blue", "grey"];
+            plot_line(svg, "COCO_train2014", "black",2);
+            plot_line(svg, "SBD_train", "red",2);
+            plot_line(svg, "Pascal_Segmentation_train_2012", "blue",2);   
+            plot_line(svg, "Uniform", "grey",2);
+
+        }
+        else
+        {
+            legend_names = ["COCO", "MCG", "SCG", "GOP", "RIGOR", "GLS", "QT", "Uniform"];
+            legend_colors = ["black", "orangered", "gray", "limegreen", "lightskyblue", "magenta", "rebeccapurple", "grey"];
+            plot_line(svg, "COCO_train2014", "black",2);
+
+            plot_line(svg, "MCG_COCO_train2014", "orangered",1);
+            plot_line(svg, "SCG_COCO_train2014", "gray",1);
+            plot_line(svg, "GOP_COCO_train2014", "limegreen",1);
+            plot_line(svg, "RIGOR_COCO_train2014", "lightskyblue",1);
+            plot_line(svg, "QT_COCO_train2014", "rebeccapurple",1);
+            plot_line(svg, "GLS_COCO_train2014", "magenta",1);
+
+            plot_line(svg, "Uniform", "grey",2);
+
+            svg.append("line")
+               .attr({
+                  "x1": 5*width/60,
+                  "y1": 0,
+                  "x2": 5*width/60,
+                  "y2": height})
+               .style("stroke","grey")
+               .style("stroke-dasharray","5,5");
+        }
+
+        // This method to "hide" lines does not work because of asynchrony of tsv
+        // svg.append("rect")
+        //       .attr("transform", "translate(" + width + ",0)")
+        //       .attr("width", 10)
+        //       .attr("height", height)
+        //       .style("fill","white")
+        //       .style("opacity",1)
+        //       .style("stroke","black")
+        //       .attr("id", "legend_rect");
+
+        // ************ Static Legend ************
+        legend_width = 78; 
+        legend_height = 15+15*legend_names.length;
+        delta_x = width-legend_width-10;
+        delta_y = height-legend_height-10;
+
+        var legend = svg.append("g")
+                        .attr("transform", "translate(" + delta_x + "," + delta_y +")")
+                        .attr("id", "legend")
+
+        legend.append("rect")
+              .attr("width", legend_width)
+              .attr("height", legend_height)
+              .style("fill","white")
+              .style("opacity",0.95)
+              .style("stroke","black")
+              .attr("id", "legend_rect");
+
+        for (var ii = 0; ii < legend_names.length; ii++)
+        { 
+          legend.append("circle")
+                .attr("r", 3)
+                .attr("cx", 13)
+                .attr("cy", (ii+1)*15)
+                .style("fill", legend_colors[ii]);
+
+          legend.append("text")
+                .attr("x", 23)
+                .attr("y", (ii+1)*15)
+                .attr("dy", ".35em")
+                .text(legend_names[ii])
+                .style("font-size", "small");
+        }
+    }
+    // ##############################################################################
+
+
+
+    // ##############################################################################
+    //  Call actual functions on startup and on resize
+    // ##############################################################################
+    d3.select(window).on('resize', resize); 
+    function resize() {
+      do_area_plot("#plot_area_distrib_1")
+      do_area_plot("#plot_area_distrib_2")
+    }
+    
+    do_area_plot("#plot_area_distrib_1")
+    do_area_plot("#plot_area_distrib_2")
+
+
+    // ##############################################################################
+
+</script>
+<script src="js/ui.js"></script>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Jordi Pont-Tuset and Luc Van Gool. Boosting Object Proposals: From Pascal to COCO. ICCV 2015.">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+    <!-- Buttons -->
+    <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+
+
+    <title>Boosting Object Proposals &ndash; From Pascal to COCO</title>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66736701-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+<style> /* set the CSS */
+/*
+path { 
+    stroke: steelblue;
+    stroke-width: 3;
+    fill: none;
+}*/
+
+.axis path{
+    fill: none;
+    stroke: black;
+    stroke-width: 2;
+    shape-rendering: crispEdges;
+}
+
+.axis line {
+    fill: none;
+    stroke: black;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.d3-tip {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1;
+  //font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+
+/*Styles for plot overlays*/
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+</style>
+</head>
+
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="coco_analysis_category.html" class="pure-menu-link">Dataset Analysis</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link pure-menu-selected">Benchmark SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link">Code</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>State-of-the-Art Object Proposal Benchmark</h1>
+            <h2>Quantitative evaluation of the current object proposal techniques</h2>
+        </div>
+
+        <div style="margin: auto;max-width: 1200px;">
+            <div style="font-family: 'Raleway', sans-serif;margin-left:15px;margin-right:10px;">
+    
+
+        <!-- Buttons  -->
+        <div class="pure-g">
+            <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">
+                <a href="soa_compare.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Global Comparison</button></a>
+            </div>
+            <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                <button class="btn btn-6 btn-6a" style="color: #6b7770;background: #e7eae8;width: 95%;margin-top:30px;">Per-Category Comparison</button>
+            </div>
+            <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                <a href="soa_compare_params.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Scripts and Parameterization</button></a>
+            </div>
+             <div class="pure-u-1-4" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                <a href="soa_compare_pre_computed.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Pre-Computed Results</button></a>
+            </div>                          
+        </div>
+            
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Per-Category Evaluation</h3>
+          Per-category Average Best Overlap (ABO) on COCO val 2014. The categories are sorted by category difficulty, that is, by the mean ABO 
+          over all state-of-the-art methids. All techniques are evaluated at around 650 proposals per image, so for those techniques producing 
+          a non-ranked set of proposals larger than 650, we randomly selected 650 out of them on every image.
+
+        <div class="pure-g">
+            <div id="plot_all_classes" class="pure-u-1-1" style="font-family: 'Raleway', sans-serif;">
+            </div>
+        </div>
+
+        <div id="categ_eval">
+          <h3 style="margin-top:30px;margin-bottom:10px;" id="categ_header">Specific Category Evaluation</h3>
+          Click on a specific category in the plot above to see the detailed evaluation on that category. Each technique is in this case
+          evalauted in their "native" number of proposals.
+          <div class="pure-g">
+              <div id="plot_cat_1" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+              </div>
+              <div id="plot_cat_2" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+              </div>
+              <div id="plot_cat_3" class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+              </div>
+          </div>
+        </div>
+
+       <h3 style="margin-top:30px;margin-bottom:10px;">Notes</h3>
+        <ul>
+        <li><b>Solid lines</b> represent ranked proposals methods, i.e., you can generate them once, and then pick the top N.</li>
+        <li><b>Dashed lines joining points</b> represent methods that have to be run with different parameterizations to get different number of proposals.</li>
+        <li><b>Isolated points</b> where methods run only for one parameterization.</li>
+        <li><b>Dashed lines without points</b> represent baseline methods.</li>
+      </ul>
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Legend</h3>
+        <ul>
+        <li><b>SharpMaskRegions</b>: Learning to Refine Object Segments, <i>P. O. Pinheiro</i>, <i>T-Y Lin</i>, <i>R. Collobert</i>, and <i>P. Dollár</i>, ECCV 2016.</li>
+        <li><b>DeepMaskRegions</b>: Learning to Segment Object Candidates, <i>P. O. Pinheiro</i>, <i>R. Collobert</i>, and <i>P. Dollár</i>, NIPS 2015.</li>
+        <li><b>COB</b>: Convolutional Oriented Boundaries, <i>K.K. Maninis</i>, <i>J. Pont-Tuset</i>, <i>P. Arbeláez</i>, and <i>L. Van Gool</i>, ECCV 2016.</li>
+        <li><b>POISE</b>: The Middle Child Problem: Revisiting Parametric Min-cut and Seeds for Object Proposals, <i>A. Humayun</i>, <i>F. Li</i>, and <i>J.M. Rehg</i>, ICCV 2015.</li>
+        <li><b>MCG</b> and <b>SCG</b>: Multiscale Combinatorial Grouping, <i>P. Arbeláez</i>, <i>J. Pont-Tuset</i>, <i>J. Barron</i>, <i>F. Marques</i>, and <i>J. Malik</i>, CVPR 2014.</li>
+        <li><b>LPO</b>: Learning to Propose Objects, <i>P. Krähenbühl</i>, and <i>V. Koltun</i>, CVPR 2015.</li>
+        <li><b>GOP</b>: Geodesic Object Proposals, <i>P. Krähenbühl</i>, and <i>V. Koltun</i>, ECCV 2014.</li>
+        <li><b>GLS</b>: Generating Object Segmentation Proposals using Global and Local Search, <i>P. Rantalankila</i>, <i>J. Kannala</i>, and <i>E. Rahtu</i>, CVPR 2014.</li>
+        <li><b>RIGOR</b>: Recycling Inference in Graph Cuts for generating Object Regions, <i>A. Humayun</i>, <i>F. Li</i>, and <i>J.M. Rehg</i>, CVPR 2014.</li>
+        <li><b>SeSe</b>: Selective Search for Object Recognition, <i>J.R.R. Uijlings</i>, <i>K.E.A. van de Sande</i>, <i>T. Gevers</i>, and <i>A.W.M. Smeulders</i>, IJCV 2013.</li>
+        <li><b>QT</b>: Baseline method consisting in a homogenous Quad-Tree, regardless of the image content.
+        </ul>
+        Is your technique missing although it's published and the code is public? <a href="contact.html">Let us know</a> and we'll add it.
+
+
+        <h3 style="margin-top:30px;margin-bottom:10px;">Discussion</h3>
+        Would you like to discuss something about the evaluation? Let us know below!
+        <div id="disqus_thread" style="margin-top:10px;"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES * * */
+            var disqus_shortname = 'objectproposals';
+            
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        </div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>
+</div>
+
+
+
+<!-- load the d3.js library -->    
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.min.js"></script> 
+<script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+<script>
+    // var sorted_categ            = ["Skis","Spoon","Fork","Knife","Sports ball","Traffic light","Baseball bat","Toothbrush","Wine glass","Book","Kite","Bird","Car","Bicycle","Bottle","Remote","Handbag","Boat","Snowboard","Tie","Skateboard","Cell phone","Backpack","Bench","Person","Baseball glove","Chair","Carrot","Motorcycle","Scissors","Banana","Cup","Potted plant","Surfboard","Sheep","Apple","Umbrella","Orange","Hair drier","Parking meter","Mouse","Vase","Cow","Tennis racket","Donut","Truck","Horse","Zebra","Broccoli","Hot dog","Bowl","Clock","Giraffe","Sink","Frisbee","Airplane","Suitcase","Cake","Dining table","Fire hydrant","Bus","Teddy bear","Sandwich","Elephant","Keyboard","Train","Toaster","Dog","Stop sign","Oven","Laptop","Pizza","Toilet","Couch","Microwave","Bed","Tv","Cat","Refrigerator","Bear"];
+    // var sorted_categ_underscore = ["skis","spoon","fork","knife","sports_ball","traffic_light","baseball_bat","toothbrush","wine_glass","book","kite","bird","car","bicycle","bottle","remote","handbag","boat","snowboard","tie","skateboard","cell_phone","backpack","bench","person","baseball_glove","chair","carrot","motorcycle","scissors","banana","cup","potted_plant","surfboard","sheep","apple","umbrella","orange","hair_drier","parking_meter","mouse","vase","cow","tennis_racket","donut","truck","horse","zebra","broccoli","hot_dog","bowl","clock","giraffe","sink","frisbee","airplane","suitcase","cake","dining_table","fire_hydrant","bus","teddy_bear","sandwich","elephant","keyboard","train","toaster","dog","stop_sign","oven","laptop","pizza","toilet","couch","microwave","bed","tv","cat","refrigerator","bear"];
+    var sorted_categ            = ["Skis","Spoon","Fork","Sports Ball","Knife","Wine Glass","Baseball Bat","Toothbrush","Traffic Light","Book","Kite","Bird","Bicycle","Car","Bottle","Handbag","Remote","Skateboard","Snowboard","Boat","Baseball Glove","Tie","Carrot","Cell Phone","Bench","Backpack","Chair","Person","Cup","Banana","Parking Meter","Motorcycle","Potted Plant","Surfboard","Apple","Mouse","Sheep","Scissors","Orange","Umbrella","Vase","Tennis Racket","Donut","Broccoli","Cow","Truck","Hot Dog","Bowl","Horse","Giraffe","Sink","Zebra","Hair Drier","Airplane","Clock","Suitcase","Toaster","Dining Table","Frisbee","Cake","Fire Hydrant","Teddy Bear","Bus","Keyboard","Elephant","Sandwich","Laptop","Train","Pizza","Oven","Stop Sign","Dog","Couch","Toilet","Microwave","Tv","Bed","Refrigerator","Cat","Bear"];
+    var sorted_categ_underscore = ["skis","spoon","fork","sports_ball","knife","wine_glass","baseball_bat","toothbrush","traffic_light","book","kite","bird","bicycle","car","bottle","handbag","remote","skateboard","snowboard","boat","baseball_glove","tie","carrot","cell_phone","bench","backpack","chair","person","cup","banana","parking_meter","motorcycle","potted_plant","surfboard","apple","mouse","sheep","scissors","orange","umbrella","vase","tennis_racket","donut","broccoli","cow","truck","hot_dog","bowl","horse","giraffe","sink","zebra","hair_drier","airplane","clock","suitcase","toaster","dining_table","frisbee","cake","fire_hydrant","teddy_bear","bus","keyboard","elephant","sandwich","laptop","train","pizza","oven","stop_sign","dog","couch","toilet","microwave","tv","bed","refrigerator","cat","bear"];
+
+    var measure_show_names_long = {"abo": "Average Best Overlap", "average_recall": "Average Recall", "rec_at_0.5": "Object Recall @ 0.5", "rec_at_0.7": "Object Recall @ 0.7", "rec_at_0.85": "Object Recall @ 0.85"}; 
+    
+    // Which techniques to show in the main plot
+    var techniques = ["SharpMaskRegions","DeepMaskRegions","COB", "POISE", "MCG", "SCG", "GOP", "RIGOR", "GLS", "SeSe", "LPO"];
+
+    // Which techniques to show in the detailed per-class plot
+    var techniques_per_class = ["SharpMaskRegions","DeepMaskRegions","COB", "POISE", "MCG", "LPO", "SCG", "GOP", "RIGOR", "GLS", "SeSe", "LPO", "QT"];
+
+    // Plot styles
+     techn_plot_styles =
+                 {"COB":   {"color": "black",
+                            "type" : "line",
+                            "style": "solid",
+                            "legname": "COB"},
+                  "DeepMaskRegions":   {"color": "LightBlue",
+                            "type" : "line",
+                            "style": "solid",
+                            "legname": "DeepM"},
+                  "SharpMaskRegions":   {"color": "RoyalBlue",
+                            "type" : "line",
+                            "style": "solid",
+                            "legname": "SharpM"},
+                  "MCG":   {"color": "orangered",
+                            "type" : "line",
+                            "style": "solid",
+                            "legname": "MCG"},
+                  "SCG":   {"color": "orange",
+                            "type" : "line",
+                            "style": "solid",
+                            "legname": "SCG"}, 
+                  "LPO":   {"color": "magenta",
+                            "type" : "marker",
+                            "marker_type" : "circle",
+                            "marker_size" : 45,
+                            "legname": "LPO"}, 
+                  "GOP":   {"color": "gray",
+                            "type" : "marker",
+                            "marker_type" : "diamond",
+                            "marker_size" : 35,
+                            "legname": "GOP"}, 
+                  "POISE": {"color": "cadetblue",
+                            "type" : "markerandline",
+                            "style": "dashed",
+                            "marker_type" : "square",
+                            "marker_size" : 30,
+                            "legname": "POISE"},            
+                  "RIGOR": {"color": "limegreen",
+                            "type" : "marker",
+                            "marker_type" : "square",
+                            "marker_size" : 45,
+                            "legname": "RIGOR"},  
+                  "GLS":   {"color": "lightskyblue",
+                            "type" : "marker",
+                            "marker_type" : "triangle-down",
+                            "marker_size" : 35,
+                            "legname": "GLS"}, 
+                  "SeSe":  {"color": "rebeccapurple",
+                            "type" : "marker",
+                            "marker_type" : "triangle-up",
+                            "marker_size" : 35,
+                            "legname": "SeSe"},
+                  "QT":    {"color": "grey",
+                            "type" : "line",
+                            "style": "dashed",
+                            "legname": "QT"},
+                          };
+
+    selected_category = "";
+    
+    function sortWithIndeces(toSort){
+      for (var i = 0; i < toSort.length; i++) {
+        toSort[i] = [toSort[i], i];
+      }
+      toSort.sort(function(left, right) {
+        return left[0] > right[0] ? -1 : 1;
+      });
+      toSort.sortIndices = [];
+      for (var j = 0; j < toSort.length; j++) {
+        toSort.sortIndices.push(toSort[j][1]);
+        toSort[j] = toSort[j][0];
+      }
+      return toSort;
+    }
+
+    // ##############################################################################
+    //  Function to plot evaluation on all categories
+    // ##############################################################################
+    function do_all_categ_plot(div_id, measure_name, database, gt_set)
+    {
+        function plot_line(svg_canvas, technique, database, gt_set, color, thickness)
+        {
+            var filename = "data/all_categ/"+database+"_"+gt_set+"_"+technique+"_650.txt";
+            d3.tsv(filename, function(error, data)
+            {
+              // Add the valueline path.
+              svg_canvas.append("path")
+                  .attr("class", "line")
+                  .attr("d", valueline(data))
+                  .datum(data)
+                  .attr("id", 'line_' + technique)
+                  .style("stroke", color)
+                  .style("stroke-width", thickness)
+                  .style("fill", "none")
+              .on("mouseover", function() {
+                  svg.select("#vertical_line").style("display", null);
+                  svg.select("#legend").attr("display", "none");
+                  svg.select("#tooltip").attr("display", null);
+                  for (var ii = 0; ii < techniques.length; ii++)
+                  { svg.select("#marker_" + techniques[ii]).style("display", null); }})
+              .on("mouseout", function() {
+                  svg.select("#vertical_line").style("display", "none");
+                  svg.select("#legend").attr("transform", "translate(20,10)");
+                  svg.select("#legend").attr("display", null);
+                  svg.select("#tooltip").attr("display", "none");
+                  for (var ii = 0; ii < techniques.length; ii++)
+                  { svg.select("#marker_" + techniques[ii]).style("display", "none"); }})
+              .on("mousemove", mousemove)
+              .on("click", mouseclick);
+            });
+        }
+
+
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 30, right: 10, bottom: 97, left: 51},
+            width  = parseInt(d3.select(div_id).style('width')),
+            width  = width - margin.left - margin.right,
+            height = 500,
+            height = height - margin.top - margin.bottom;
+        
+        // Set the ranges
+        var x = d3.scale.ordinal().domain(sorted_categ).rangePoints([0, width]);
+        var y = d3.scale.linear().range([height, 0]);
+
+        // Define the axes
+        var xAxis = d3.svg.axis().scale(x)
+            .innerTickSize(-height)
+            .outerTickSize(0)
+            .tickPadding(23)
+            .orient("bottom").ticks(80);
+
+        var x2Axis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("");
+
+        var yAxis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickPadding(25)
+            .orient("left").ticks(10);
+
+
+        var y2Axis = d3.svg.axis().scale(y)
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("")
+            .orient("left").ticks(10);
+
+        var y3Axis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickFormat("")
+            .orient("left").ticks(50);
+
+
+        // Define the line
+        var valueline = d3.svg.line()
+            .x(function(d) { return x(d.ClassId); })
+            .y(function(d) { return y(d[measure_name]); });
+
+        // Clear previous plot (if any)
+        d3.select(div_id)
+          .selectAll("svg")
+          .remove();
+
+        // Adds the svg canvas
+        var svg = d3.select(div_id)
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", 
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+        // Adapt the domain of the data (limits)
+        // x.domain([1, 80]);
+        y.domain([0.19, 0.91]);
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+          .selectAll("text")
+            .attr("dy", "-4px")
+            .attr("dx", "-18px")
+            .attr("transform", "rotate(-55)")
+            .style("text-anchor", "end");
+
+
+        svg.selectAll("g.x.axis line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+        svg.selectAll("g.x.axis path")
+            .style("display", "none")
+
+        // Add the Y Axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-10")
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text(measure_show_names_long[measure_name]);
+
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(y3Axis);
+
+        svg.selectAll("g.y.axis g.tick line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+
+        svg.selectAll("g.y.axis path")
+            .style("display", "none")
+
+        svg.selectAll("g.y.axis text")
+            .style("font-size","small");
+
+        svg.selectAll("g.x.axis text")
+            .style("font-size","small");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height+15) + ")")
+            .call(x2Axis)
+          .append("text")
+            .attr("x", width)
+            .attr("dx", -1)
+            .attr("dy", -4)
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Category");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-17,0)")
+            .call(y2Axis);
+
+
+        svg.append("line")
+           .attr({
+              "x1": 0,
+              "y1": 0,
+              "x2": 0,
+              "y2": height})
+           .attr("id","vertical_line")
+           .style("display", "none")
+           .style("stroke","red");
+
+
+        // ************ Plot all lines ************
+        for (var ii = 0; ii < techniques.length; ii++)
+        { 
+          col =  techn_plot_styles[techniques[ii]].color;
+          plot_line(svg, techniques[ii] , database, gt_set, col,2);
+
+          svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none")
+            .attr("id", "marker_" + techniques[ii])
+          .append("circle")
+            .attr("r", 3)
+            .style("fill", col);
+        }
+
+
+
+        // ************ Static Legend ************
+        var legend = svg.append("g")
+                        .attr("transform", "translate(20,10)")
+                        .attr("id", "legend")
+
+        legend.append("rect")
+              .attr("width", 80)
+              .attr("height", 15+15*techniques.length)
+              .style("fill","white")
+              .style("opacity",0.95)
+              .style("stroke","black")
+              .attr("id", "legend_rect");
+
+        for (var ii = 0; ii < techniques.length; ii++)
+        { 
+          legend.append("circle")
+                .attr("r", 3)
+                .attr("cx", 13)
+                .attr("cy", (ii+1)*15)
+                .style("fill", techn_plot_styles[techniques[ii]].color);
+
+          legend.append("text")
+                .attr("x", 23)
+                .attr("y", (ii+1)*15)
+                .attr("dy", ".35em")
+                .text(techn_plot_styles[techniques[ii]].legname)
+                .style("font-size", "small");
+        }
+
+
+
+       // ************ Tooltip legend ************
+       var tooltip = svg.append("g")
+                        .attr("transform", "translate(20,10)")
+                        .attr("id", "tooltip");
+
+        tooltip.append("rect")
+              .attr("width", 120)
+              .attr("height", 28+15*techniques.length)
+              .style("fill","white")
+              .style("opacity",0.95)
+              .style("stroke","black")
+              .attr("id", "tooltip_rect");
+
+        tooltip.append("text")
+                .attr("x", 25)
+                .attr("y", 12)
+                .attr("dy", ".35em")
+                .text("Category")
+                .style("font-size", "small")
+                // .style("font-weight", "500")
+                .attr("id", "tooltip_categ");
+        for (var ii = 0; ii < techniques.length; ii++)
+        { 
+          tooltip.append("circle")
+                .attr("r", 3)
+                .attr("cx", 13)
+                .attr("cy", (ii+2)*15)
+                .attr("id", "tooltip_circle_" + ii);
+                // .style("fill", techn_plot_styles[techniques[ii]].color);
+
+          tooltip.append("text")
+                .attr("x", 23)
+                .attr("y", (ii+2)*15)
+                .attr("dy", ".35em")
+                .attr("id", "tec_name_" + ii)
+                .style("font-size", "small");
+
+          tooltip.append("text")
+                .attr("x", 80)
+                .attr("y", (ii+2)*15)
+                .attr("dy", ".35em")
+                .text("x.xx")
+                .style("font-size", "small")
+                .attr("id", "tooltip_val_" + ii);
+        }
+
+        svg.select("#tooltip").attr("display", "none");
+
+
+
+        // ************ Invisible rectangle for mousemove ************
+        svg.append("rect")
+           .attr("class", "overlay")
+           .attr("width", width)
+           .attr("height", height)
+           .on("mouseover", function() {
+                      svg.select("#vertical_line").style("display", null);
+                      svg.select("#legend").attr("display", "none");
+                      svg.select("#tooltip").attr("display", null);
+                      for (var ii = 0; ii < techniques.length; ii++)
+                      { svg.select("#marker_" + techniques[ii]).style("display", null); }})
+           .on("mouseout", function() {
+                      svg.select("#vertical_line").style("display", "none");
+                      svg.select("#legend").attr("transform", "translate(20,10)");
+                      svg.select("#legend").attr("display", null);
+                      svg.select("#tooltip").attr("display", "none");
+                      for (var ii = 0; ii < techniques.length; ii++)
+                      { svg.select("#marker_" + techniques[ii]).style("display", "none"); }})
+           .on("mousemove", mousemove)
+           .on("click", mouseclick);
+
+        function mouseclick()
+        {
+            if (d3.event.defaultPrevented) return; // click suppressed
+            var x0 = Math.round(d3.mouse(this)[0]/width*79);
+            selected_category = sorted_categ_underscore[x0];
+
+            do_one_categ_plot("#plot_cat_1", "abo", "COCO"  , "val2014")
+            do_one_categ_plot("#plot_cat_2", "average_recall", "COCO", "val2014")
+            do_one_categ_plot("#plot_cat_3", "rec_at_0.7", "COCO", "val2014")
+        }
+
+        function mousemove()
+        {
+          var x0 = Math.round(d3.mouse(this)[0]/width*79);
+
+          // Get all J values at that point
+          var all_J_values = [];
+          for (var ii = 0; ii < techniques.length; ii++)
+          { 
+            all_J_values.push(parseFloat(svg.select("#line_" + techniques[ii]).datum()[x0][measure_name]));
+          }
+
+          // Sort them in decresing order
+          sorted_J_values = all_J_values.slice();
+          sortWithIndeces(sorted_J_values);
+
+          // Show them in decresing order
+          for (var ii = 0; ii < techniques.length; ii++)
+          { 
+            var id_sorted = sorted_J_values.sortIndices[ii];
+            svg.select("#vertical_line").attr("transform", "translate(" + x0/79*width + "," + 0 + ")");
+            svg.select("#tooltip_val_" + ii).text(parseFloat(sorted_J_values[ii]).toFixed(3));
+            svg.select("#tec_name_" + ii).text(techn_plot_styles[techniques[id_sorted]].legname);
+            svg.select("#tooltip_circle_" + ii).style("fill", techn_plot_styles[techniques[id_sorted]].color);
+          }
+          svg.select("#tooltip_categ").text(sorted_categ[x0]);
+
+          // Move the markers
+          for (var ii = 0; ii < techniques.length; ii++)
+          { 
+            svg.select("#marker_" + techniques[ii]).attr("transform", "translate(" + x0/79*width + "," + y(all_J_values[ii]) + ")");
+          }
+
+          // Move the tooltip
+          if (x0<40)
+          {
+            var disp = x0/79*width - svg.select("#tooltip_rect").attr("width");
+            if (disp<0)
+              disp = 0;
+            svg.select("#tooltip").attr("transform", "translate(" + disp   + "," + 0 + ")");
+          }
+          else
+          {
+            var disp   = x0/79*width;
+            var disp_y = height - svg.select("#tooltip_rect").attr("height");
+            if (disp + parseInt(svg.select("#tooltip_rect").attr("width")) > width)
+              disp = width - parseInt(svg.select("#tooltip_rect").attr("width"));
+            svg.select("#tooltip").attr("transform", "translate(" + disp   + "," + disp_y + ")");
+          }
+        }
+    }
+    // ##############################################################################
+
+
+
+
+
+
+
+
+    // ##############################################################################
+    //  Function to plot evaluation on one categories
+    // ##############################################################################
+    var superscript = "⁰¹²³⁴⁵⁶⁷⁸⁹",
+        formatPower = function(d) { return (d + "").split("").map(function(c) { return superscript[c]; }).join(""); };
+
+    var measure_show_names_short = {"abo": "ABO", "average_recall": "AR", "rec_at_0.5": "OR@0.5", "rec_at_0.7": "OR@0.7", "rec_at_0.85": "OR@0.85"}; 
+    var measure_show_names_long = {"abo": "Average Best Overlap", "average_recall": "Average Recall", "rec_at_0.5": "Object Recall @ 0.5", "rec_at_0.7": "Object Recall @ 0.7", "rec_at_0.85": "Object Recall @ 0.85"}; 
+
+    function do_one_categ_plot(div_id, measure_name, database, gt_set)
+    {
+        function plot_one(svg_canvas, technique, database, gt_set)
+        {
+            var filename = "data/per_categ_eval/"+database+"_"+gt_set+"_"+technique+"_"+selected_category+".txt";
+            d3.tsv(filename, function(error, data)
+            {
+              //Mouseover tip
+              var tip = d3.tip()
+                  .attr('class', 'd3-tip')
+                  .style("font-size", "14px") 
+                  .offset([-10, 0])
+                  .html(function(d) {
+                    return technique+"<br>#prop="+parseFloat(d.ncands).toFixed(0)+"<br>"+measure_show_names_short[measure_name]+"="+parseFloat(d[measure_name]).toFixed(3);
+                  });
+
+              svg_canvas.call(tip);
+
+              var plot_style = techn_plot_styles[technique];
+              if (plot_style.type == "line" || plot_style.type == "markerandline")
+              { 
+                // Add the valueline path.
+                if (plot_style.style=="dashed")
+                {
+                  svg_canvas.append("path")
+                      .attr("class", "line")
+                      .attr("d", valueline(data))
+                      .style("stroke", plot_style.color)
+                      .style("stroke-width", 2)
+                      .style("fill", "none")
+                      .style("stroke-dasharray", "5,5");
+                }
+                else
+                {
+                  svg_canvas.append("path")
+                      .attr("class", "line")
+                      .attr("d", valueline(data))
+                      .style("stroke", plot_style.color)
+                      .style("stroke-width", 2)
+                      .style("fill", "none");
+                }
+                                        
+
+                svg_canvas.selectAll(".dot")
+                  .data(data)
+                  .enter().append("circle")
+                  .attr('cx', function(d) { return x(d.ncands); })
+                  .attr('cy', function(d) { return y(d[measure_name]); })
+                  .attr('r', 4)
+                  .attr('opacity', '0')
+                  .attr('stroke-width', '3')
+                  .on('mouseover', tip.show)
+                  .on('mouseout', tip.hide);
+              }
+              
+              if (plot_style.type == "marker" || plot_style.type == "markerandline")
+              {
+                // Add the valueline path.
+                svg_canvas.append("path")
+                    .attr('opacity', '0')
+                    .attr("d", valueline(data));
+
+                svg_canvas.selectAll(".point")
+                    .data(data)
+                    .enter().append("path")
+                    .attr("d", d3.svg.symbol().type(plot_style.marker_type).size(plot_style.marker_size))
+                    .attr("transform", function(d) { return "translate(" + x(d.ncands) + "," + y(d[measure_name]) + ")"; })
+                    .style("stroke", plot_style.color)
+                    .style("stroke-width", 1.5)
+                    .style("fill", "white")
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide);
+              }
+            });
+        }
+              
+
+        function do_all_plots(svg_canvas, database, gt_set)
+        {
+          var categ_show_name = selected_category.replace("_", " ");
+          categ_show_name = categ_show_name.charAt(0).toUpperCase() + categ_show_name.slice(1);
+          d3.select("#categ_header").text("Specific Category Evaluation: " + categ_show_name);
+
+          for (var ii = 0; ii < techniques_per_class.length; ii++)
+            plot_one(svg_canvas, techniques_per_class[ii], database, gt_set);
+        }
+
+        // Set the dimensions of the canvas / graph
+        var margin = {top: 30, right: 10, bottom: 35, left: 48},
+            width  = parseInt(d3.select(div_id).style('width')),
+            width  = width - margin.left - margin.right,
+            height = 500,
+            height = height - margin.top - margin.bottom;
+        
+        // Set the ranges
+        var x = d3.scale.log().range([0, width]);
+        var y = d3.scale.linear().range([height, 0]);
+
+        // Define the axes
+        var xAxis = d3.svg.axis().scale(x)
+            .innerTickSize(-height)
+            .outerTickSize(0)
+            .tickPadding(23)
+            .orient("bottom").ticks(3, function(d) { return 10 + formatPower(Math.round(Math.log(d) / Math.LN10)); }); // Labels down the line
+
+        var x2Axis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("");
+
+        var yAxis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickPadding(25)
+            .orient("left").ticks(10);
+
+
+        var y2Axis = d3.svg.axis().scale(y)
+            .innerTickSize(5)
+            .outerTickSize(5)
+            .tickFormat("")
+            .orient("left").ticks(10);
+
+        var y3Axis = d3.svg.axis().scale(y)
+            .innerTickSize(-width)
+            .outerTickSize(0)
+            .tickFormat("")
+            .orient("left").ticks(50);
+
+
+        // Define the line
+        var valueline = d3.svg.line()
+            .x(function(d) { return x(d.ncands); })
+            .y(function(d) { return y(d[measure_name]); });
+
+        // Clear previous plot (if any)
+        d3.select(div_id)
+          .selectAll("svg")
+          .remove();
+
+        // Adds the svg canvas
+        var svg = d3.select(div_id)
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", 
+                      "translate(" + margin.left + "," + margin.top + ")");
+
+        // Adapt the domain of the data (limits)
+        x.domain([50, 20000]);
+        y.domain([0, 1]);
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+          .append("text")
+            .attr("x", width)
+            .attr("dx", -1)
+            .attr("dy", 11)
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text("Number of Proposals");
+          
+        svg.selectAll("g.x.axis line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+        svg.selectAll("g.x.axis path")
+            .style("display", "none")
+
+        // Add the Y Axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "-10")
+            .style("text-anchor", "end")
+            .style("font-size", "small")
+            .text(measure_show_names_long[measure_name]);
+
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(y3Axis);
+
+        svg.selectAll("g.y.axis g.tick line")
+            .style("stroke-dasharray", "1,1")
+            .style("stroke", "black")
+            .style("opacity", 0.2)
+
+        svg.selectAll("g.y.axis path")
+            .style("display", "none")
+
+        svg.selectAll("g.y.axis text")
+            .style("font-size","small");
+
+        svg.selectAll("g.x.axis text")
+            .style("font-size","small");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + (height+15) + ")")
+            .call(x2Axis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(-17,0)")
+            .call(y2Axis);
+
+        // Get the data
+        if (selected_category!="")
+          do_all_plots(svg,database,gt_set);
+ 
+        svg.append("text")
+            .attr("x", (width / 2))             
+            .attr("y", 0 - (margin.top / 4))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "15px") 
+            .text(measure_show_names_long[measure_name]);
+
+    }
+    // ##############################################################################
+
+
+
+
+
+
+    // ##############################################################################
+    //  Call actual functions on startup and on resize
+    // ##############################################################################
+    d3.select(window).on('resize', resize); 
+    function resize() {
+      do_all_categ_plot("#plot_all_classes", "abo", "COCO", "val2014")
+
+      do_one_categ_plot("#plot_cat_1", "abo", "COCO"  , "val2014")
+      do_one_categ_plot("#plot_cat_2", "average_recall", "COCO", "val2014")
+      do_one_categ_plot("#plot_cat_3", "rec_at_0.7", "COCO", "val2014")
+    }
+    
+    do_all_categ_plot("#plot_all_classes", "abo", "COCO", "val2014")
+    
+    do_one_categ_plot("#plot_cat_1", "abo", "COCO"  , "val2014")
+    do_one_categ_plot("#plot_cat_2", "average_recall", "COCO", "val2014")
+    do_one_categ_plot("#plot_cat_3", "rec_at_0.7", "COCO", "val2014")
+    // ##############################################################################
+
+</script>
+
+
+<script src="js/ui.js"></script>
+
+</body>
+
+</html>
+
+

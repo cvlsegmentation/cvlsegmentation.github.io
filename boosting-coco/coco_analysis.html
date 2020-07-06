@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Jordi Pont-Tuset and Luc Van Gool. Boosting Object Proposals: From Pascal to COCO. ICCV 2015.">
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+    <!-- Buttons -->
+    <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+
+    <title>Boosting Object Proposals &ndash; From Pascal to COCO</title>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-66736701-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+</head>
+
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="coco_analysis_category.html" class="pure-menu-link pure-menu-selected">Dataset Analysis</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link">Code</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Dataset Analysis</h1>
+            <h2>Analyzing the Statistical Properties of the Segmented Annotations</h2>
+        </div>
+
+        <div style="margin: auto;max-width: 1200px;">
+            <div style="font-family: 'Raleway', sans-serif;margin-left:15px;margin-right:10px;">
+
+            <!-- Buttons  -->
+            <div class="pure-g">
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                    <a href="coco_analysis_category.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Category Distribution</button></a>
+                </div>
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">
+                    <button class="btn btn-6 btn-6a" style="color: #6b7770;background: #e7eae8;width: 95%;margin-top:30px;">Spatial Distribution</button>
+                </div>
+                <div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">  
+                    <a href="coco_analysis_area.html"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:30px;">Area Distribution</button></a>
+                </div>
+            </div>
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Global Spatial Distribution of Annotations</h3>
+            We analize the location of the annotations within the image by 
+            accummulating the masks of all annotations in the database and then plotting the heatmap.
+            <div class="pure-g" style="margin-top:20px;">
+                <div class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+                    <div style="text-align:center;margin-left:15px;margin-right:10px;">
+                        <img class="pure-img-responsive", src="images/obj_loc/ObjLocalization_Pascal_Segmentation_train_2012.jpg" alt="ICCV2015">
+                        Pascal
+                    </div>
+                </div>
+                <div class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+                    <div style="text-align:center;margin-left:15px;margin-right:10px;">
+                        <img class="pure-img-responsive", src="images/obj_loc/ObjLocalization_SBD_train.jpg" alt="ICCV2015">
+                        SBD
+                    </div>
+                </div>
+                <div class="pure-u-1-3" style="font-family: 'Raleway', sans-serif;">
+                    <div style="text-align:center;margin-left:15px;margin-right:10px;">
+                        <img class="pure-img-responsive", src="images/obj_loc/ObjLocalization_COCO_train2014.jpg" alt="ICCV2015">
+                        COCO
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Per-Class Spatial Distribution of Annotations</h3>
+            Per-class heatmaps of the locations of the annotations in COCO
+            <div id="per_class" class="pure-g" style="margin-top:10px;margin-right:10px;">
+            </div>
+
+            <h3 style="margin-top:30px;margin-bottom:10px;">Discussion</h3>
+            Would you like to discuss something about these results? Let us know below!
+            <div id="disqus_thread" style="margin-top:10px;"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES * * */
+                var disqus_shortname = 'objectproposals';
+                
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            </div>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    coco_cat_ids   = ["person", "car", "chair", "book", "bottle", "cup", "dining_table", "bowl", "traffic_light", "handbag", "umbrella", "boat", "bird", "truck", "bench", "banana", "sheep", "kite", "backpack", "motorcycle", "potted_plant", "cow", "wine_glass", "knife", "carrot", "bicycle", "broccoli", "donut", "skis", "horse", "vase", "orange", "cake", "tie", "cell_phone", "sports_ball", "bus", "clock", "spoon", "apple", "suitcase", "surfboard", "remote", "couch", "tv", "skateboard", "pizza", "sink", "fork", "elephant", "airplane", "dog", "zebra", "giraffe", "laptop", "tennis_racket", "teddy_bear", "cat", "train", "sandwich", "bed", "toilet", "baseball_glove", "baseball_bat", "oven", "hot_dog", "keyboard", "snowboard", "refrigerator", "frisbee", "mouse", "stop_sign", "toothbrush", "fire_hydrant", "microwave", "scissors", "bear", "parking_meter", "toaster", "hair_drier"];
+    coco_cat_names = ["Person", "Car", "Chair", "Book", "Bottle", "Cup", "Dining Table", "Bowl", "Traffic Light", "Handbag", "Umbrella", "Boat", "Bird", "Truck", "Bench", "Banana", "Sheep", "Kite", "Backpack", "Motorcycle", "Potted Plant", "Cow", "Wine Glass", "Knife", "Carrot", "Bicycle", "Broccoli", "Donut", "Skis", "Horse", "Vase", "Orange", "Cake", "Tie", "Cell Phone", "Sports Ball", "Bus", "Clock", "Spoon", "Apple", "Suitcase", "Surfboard", "Remote", "Couch", "Tv", "Skateboard", "Pizza", "Sink", "Fork", "Elephant", "Airplane", "Dog", "Zebra", "Giraffe", "Laptop", "Tennis Racket", "Teddy Bear", "Cat", "Train", "Sandwich", "Bed", "Toilet", "Baseball Glove", "Baseball Bat", "Oven", "Hot Dog", "Keyboard", "Snowboard", "Refrigerator", "Frisbee", "Mouse", "Stop Sign", "Toothbrush", "Fire Hydrant", "Microwave", "Scissors", "Bear", "Parking Meter", "Toaster", "Hair Drier"]
+    for(var ii = 0; ii < coco_cat_ids.length; ii += 1)
+    {   
+        var im_elem = document.createElement("div");
+            im_elem.className = "pure-u-1-8";
+            im_elem.style.fontFamily = "'Raleway', sans-serif";
+        var div    = document.createElement("div");
+            div.style.textAlign  = "center";
+            div.style.fontSize   = "80%";
+            div.style.marginLeft = "15px";
+            div.style.marginTop  = "15px";
+            div.innerHTML =  "<img class=\"pure-img-responsive\", src=\"images/per_cat_localization/ObjLocalization_COCO_"+coco_cat_ids[ii]+"_train2014.jpg\" alt=\"ICCV2015\">"+coco_cat_names[ii];
+        im_elem.appendChild(div);
+        var element = document.getElementById("per_class");
+        element.appendChild(im_elem);
+    }
+</script>
+
+
+
+<script src="js/ui.js"></script>
+
+
+</body>
+
+</html>
+
+

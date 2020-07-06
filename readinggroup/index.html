@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+  ================================================== -->
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116539120-3"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-116539120-3');
+	</script>
+
+	<meta charset="utf-8">
+	<title>CVL Segmentation Reading Group</title>
+	<meta name="description" content="CVL Segmentation Reading Group">
+	<meta name="author" content="CVL">
+	
+    <!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+
+   <!--Import materialize.css-->
+  	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!-- CSS
+	================================================== -->
+  	<link rel="stylesheet" href="css/zerogrid.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+	
+	
+	<link rel="stylesheet" href="css/menu.css">
+	<script src="js/jquery1111.min.js" type="text/javascript"></script>
+	<script src="js/script.js"></script>
+	
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+
+	<link rel="shortcut icon" href="images/cvl_icon.png">
+	
+		<!-- Add smooth transition -->
+	<script>
+	$(document).ready(function(){
+	  // Add smooth scrolling to all links
+	  $("a").on('click', function(event) {
+
+	    // Make sure this.hash has a value before overriding default behavior
+	    if (this.hash !== "") {
+	      // Prevent default anchor click behavior
+	      event.preventDefault();
+
+	      // Store hash
+	      var hash = this.hash;
+
+	      // Using jQuery's animate() method to add smooth page scroll
+	      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+	      $('html, body').animate({
+	        scrollTop: $(hash).offset().top
+	      }, 800, function(){
+	   
+	        // Add hash (#) to URL when done scrolling (default click behavior)
+	        window.location.hash = hash;
+	      });
+	    } // End if
+	  });
+	});
+	</script>
+
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/Items/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+	<![endif]-->
+	
+<style type="text/css">
+    /*********************************
+    The list of publication items
+    *********************************/
+    /* The list of items */
+    .biblist { }
+
+    /* The item */
+    .biblist li { }
+
+    /* You can define custom styles for plstyle field here. */
+
+
+    /*************************************
+     The box that contain BibTeX code
+     *************************************/
+    div.noshow { display: none; }
+    div.bibtex {
+        margin-right: 0%;
+        margin-top: 1.2em;
+        margin-bottom: 1.3em;
+        border: 1px solid silver;
+        padding: 0.3em 0.5em;
+        background: #ffffee;
+    }
+    div.bibtex pre { font-size: 75%; overflow: auto;  width: 100%; }
+
+
+    .content-subhead{color: black}
+
+    .btn-large{
+    	text-transform: none;
+    	background-color: #AAAAAA;
+    }
+
+    .round{
+	  width:100%;
+	  padding-top:100%;
+	  overflow:hidden;
+	  position:relative;
+	  border-radius:50%;
+	}
+	img.roundimg{
+	  position:absolute;
+	  top:50%;
+	  left:50%;
+	  min-width:100%;
+	  height:100%;
+	  transform:translate(-50%,-50%);
+	  transition: 1s ease;
+	}
+</style>
+
+<script type="text/javascript">
+ <!--
+ // Toggle Display of BibTeX
+ function toggleBibtex(articleid) {
+     var bib = document.getElementById('bib_'+articleid);
+     if (bib) {
+         if(bib.className.indexOf('bibtex') != -1) {
+             bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex';
+         }
+     } else {
+         return;
+     }
+ }
+-->
+</script>
+</head>
+
+<body>
+
+<div class="wrap-body">
+
+	<!--////////////////////////////////////Header-->
+	<header class="zerogrid">
+		<div id='cssmenu' class="align-center">
+			<ul>
+			   <li class="active"><a href='index.html'><span>Home</span></a></li>
+			   <li><a href='#about'><span>About</span></a></li>
+			   <li><a href='#schedule'><span>Schedule</span></a></li>
+			   <li><a href='#future'><span>Future Papers</span></a></li>
+			   <li class='last'  style="margin-top:-7px;"><a href="https://twitter.com/intent/tweet?text=Deep Segmentation Reading Group @ Computer Vision Lab, ETH Zurich!%20http://vision.ee.ethz.ch/~cvlsegmentation/readinggroup/index.html"><i class="fa fa-twitter fa-2x"></i></a></li>
+			</ul>
+		</div>
+	</header>
+
+
+<!--////////////////////////////////////Container-->
+<section id="container">
+	<div class="wrap-container">
+		<!-----------------content-box-2-------------------->
+		<section class="content-box box-2">
+			<div class="zerogrid">
+				<div class="row wrap-box"><!--Start Box-->
+					<div class="header">
+						<hr class="line-2">
+						<h1>CVL Deep Segmentation Reading Group</h1>
+						<span style="line-height: 1.2">Let's talk about deep learning and segmentation</span>
+					</div>	
+										<div class="row">
+						<div class="col-1-5 t-center">
+							<img src="images/galery/yuhua-mrcnn.jpg" style="width:98%"/>
+						</div>
+						<div class="col-1-5 t-center">
+							<img src="images/galery/yuhua-mrcnn.jpg" style="width:98%"/>
+						</div>
+						<div class="col-1-5 t-center">
+							<img src="images/galery/yuhua-mrcnn.jpg" style="width:98%"/>
+						</div>
+						<div class="offsetonlyonmobile">
+						</div>
+						<div class="col-1-5 t-center">
+							<img src="images/galery/yuhua-mrcnn.jpg" style="width:98%"/>
+						</div>
+						
+						<div class="col-1-5 t-center">
+							<img src="images/galery/yuhua-mrcnn.jpg" style="width:98%"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+
+
+
+<section class="content-box box-3" id="about">
+	<div class="zerogrid">
+		<div class="row wrap-box t-center" style="margin-left:10%;margin-right:10%;"><!--Start Box-->
+			<hr class="line-2">
+				<h2 style="margin-bottom:20px">About</h2>
+				<div>
+					Where: ETF C106 <br>
+	    			When: Wednesdays, at 10:30-11:30 am <br>
+				</div>
+		</div>
+	</div>
+</section>
+
+
+
+<section class="content-box box-3">
+	<div class="zerogrid">
+		<div class="row wrap-box" style="margin-left:5%;margin-right:5%;" id="schedule"><!--Start Box-->
+				<article>
+					<div class="row t-center" style="line-height: 1.5">
+					<hr class="line-2">
+					<h2 style="margin-bottom:20px">Schedule</h2>
+
+
+
+					<h3 class="discr">12.02.2019 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Xin Lu, Buyu Li, Yuxin Yue, Quanquan Li, Junjie Yan <br>
+										 <b> Grid R-CNN </b>,&nbsp;<i> in arXiv</i> 2019 <br>
+										  [<a href="https://arxiv.org/abs/1811.12030" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+										[<a href="https://docs.google.com/presentation/d/1UuhzTnePZvdy_gYmOG2PBLJ4q5uMBboxbWZNE9WwmYc/edit?usp=sharing" target="_blank">Presentation</a>] 
+									</p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">16.01.2019 (Sergi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Alexander Kirillov, Ross Girshick, Kaiming He, Piotr Dollar <br>
+										 <b> Panoptic Feature Pyramid Networks </b>,&nbsp;<i> in arXiv</i> 2019 <br>
+										  [<a href="https://arxiv.org/abs/1901.02446" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+										[<a href="https://docs.google.com/presentation/d/1gMhUphvYf-p5CEg8PqXuuWiziwLK9DH-_6rSgn6dbsU/edit?usp=sharing" target="_blank">Presentation</a>] 
+									</p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">12.12.2018 (Suman)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Xun Huang, Ming-Yu Liu, Serge Belongie, Jan Kautz <br>
+										 <b> Multimodal Unsupervised Image-to-Image Translation </b>,&nbsp;<i> in ECCV </i> 2018 <br>
+										  [<a href="https://arxiv.org/abs/1804.04732" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">05.12.2018 (Christos)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Roey Mechrez, Itamar Talmi, Lihi Zelnik-Manor <br>
+										 <b> The Contextual Loss for Image Transformation with Non-Aligned Data </b>,&nbsp;<i> in ECCV </i> 2018 <br>
+										  [<a href="http://openaccess.thecvf.com/content_ECCV_2018/html/Roey_Mechrez_The_Contextual_Loss_ECCV_2018_paper.html" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">28.11.2018 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Simon Kornblith, Jonathon Shlens, and Quoc V. Le <br>
+										 <b> Do Better ImageNet Models Transfer Better? </b>,&nbsp;<i> in arXiv </i> 2017 <br>
+										  [<a href="https://arxiv.org/abs/1805.08974" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Kaiming He, Ross Girshick, Piotr Dollár <br>
+										 <b> Rethinking ImageNet Pre-training </b>,&nbsp;<i> in arXiv </i> 2018  <br>
+										  [<a href="https://arxiv.org/abs/1811.08883" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+
+
+					<h3 class="discr">24.10.2018 (Stam)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Yuliang Zou, Zelun Luo, Jia-Bin Huang <br>
+										 <b> DF-Net: Unsupervised Joint Learning of Depth and Flow using Cross-Task Consistency </b>,&nbsp;<i> in ECCV </i> 2018 <br>
+										  [<a href="https://arxiv.org/abs/1809.01649" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">30.05.2018 (Stam)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Xiaojie Jin, Huaxin Xiao, Xiaohui Shen, Jimei Yang, Zhe Lin, Yunpeng Chen, Zequn Jie, Jiashi Feng, Shuicheng Yan <br>
+										 <b> Predicting Scene Parsing and Motion Dynamics in the Future </b>,&nbsp;<i> in NIPS </i> 2017 <br>
+										  [<a href="https://arxiv.org/abs/1711.03270" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">16.05.2018 (Yuhua)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Ping Luo, Guangrun Wang, Liang Lin, Xiaogang Wang <br>
+										 <b> Deep Dual Learning for Semantic Image Segmentation </b>,&nbsp;<i> in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a href="http://personal.ie.cuhk.edu.hk/~pluo/pdf/luoWLWiccv17.pdf" target="_blank" href="">Paper</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">09.05.2018 15:30 (Sergi, Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Anna Khoreva, Anna Rohrbach, Bernt Schiele  <br>
+										 <b> Video Object Segmentation with Language Referring Expressions </b>,&nbsp;<i> in arXiv </i> 2018 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1803.08006" target="_blank">arXiv</a>] &nbsp;&nbsp;
+										  [<a href="https://docs.google.com/presentation/d/17PGMbBddV6_jLjBYHpeUnXbGpr3wrQPNkBM-g7G_zZs/edit#slide=id.g3433347ee2_0_13" target="_blank">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Zbigniew Wojna, Vittorio Ferrari, Sergio Guadarrama, Nathan Silberman, Liang-Chieh Chen, Alireza Fathi, Jasper Uijlings <br>
+										 <b> The Devil is in the Decoder </b>,&nbsp;<i> in BMVC </i> 2017 <br> (Trick of the week) <br>
+										  [<a href="https://arxiv.org/abs/1707.05847" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Hang Zhang, Kristin Dana, Jianping Shi, Zhongyue Zhang, Xiaogang Wang, Ambrish Tyagi, Amit Agrawal <br>
+										 <b>  Context Encoding for Semantic Segmentation </b>,&nbsp;<i> in CVPR </i> 2018 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1803.08904" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+										  [<a href="https://docs.google.com/presentation/d/1F2Tj_L7wqvcEdmBXIuymGvI4g1z6aa_mnwIGL_DdU7Q/edit?usp=sharing" target="_blank" href="">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">03.05.2018 13:00 (Kevis, Sergi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Siddhartha Chandra, Camille Couprie, Iasonas Kokkinos  <br>
+										 <b> Deep Spatio-Temporal Random Fields for Efficient Video Segmentation </b>,&nbsp;<i> in CVPR </i> 2018 <br> (Full Paper) <br>
+										  [<a href="https://siddharthachandra.github.io/resources/chandra-cvpr-2018.pdf" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam  <br>
+										 <b> Rethinking Atrous Convolution for Semantic Image Segmentation (DeepLab-v3) </b>,&nbsp;<i> in arXiv </i> 2017 <br> (Trick of the week) <br>
+										  [<a href="" target="_blank" href="https://arxiv.org/abs/1706.05587">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Liang-Chieh Chen, Yukun Zhu, George Papandreou, Florian Schroff, Hartwig Adam <br>
+										 <b> Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation (DeepLab-v3+) </b>,&nbsp;<i> in arXiv </i> 2018 <br> (Trick of the week) <br>
+										  [<a href="" target="_blank" href="https://arxiv.org/abs/1802.02611">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">25.04.2018 (Yuhua)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Tal Remez, Jonathan Huang, Matthew Brown <br>
+										 <b>   Learning to Segment via Cut-and-Paste </b>,&nbsp;<i> in CVPR </i> 2018 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1803.06414" target="_blank" href="">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">21.03.2018 (Yuhua)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Shu Liu, Lu Qi, Haifang Qin, Jianping Shi, Jiaya Jia <br>
+										 <b>  Path Aggregation Network for Instance Segmentation </b>,&nbsp;<i> in CVPR </i> 2018 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1803.01534" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+										  [<a href="https://docs.google.com/presentation/d/1JsLHSLvg9g42Yw0UnaUxF0UZPIu17Ch3E4XpR6vaihA/edit?usp=drivesdk" target="_blank" href="">presentation</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Eirikur Augustsson <br>
+										 <b>  GAN crash course (for Segmentation) </b>,&nbsp;<br>
+										  [<a href="presentations/gan-crash_part1.pdf" target="_blank" href="">presentation (part 1)</a>] &nbsp;&nbsp;
+										  [<a href="presentations/gan-crash_part2.pdf" target="_blank" href="">presentation (part 2)</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">14.03.2018 (Sergi, Alberto)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Xiaoxiao Li, Chen Change Loy <br>
+										 <b>  Video object segmentation with Joint Re-identification and Attention-aware Mask Propagation </b>,&nbsp;<i> in arXiv </i> 2018 <br> (Full Paper) <br>
+										 [<a href="https://arxiv.org/abs/1803.04242v2" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+										 [<a href="https://docs.google.com/presentation/d/1r5Aw2J_gA0yJq4k6l_8jXcc5iJsz-_yNUl1NwNyx524/edit#slide=id.gc6f73a04f_0_0" target="_blank" href="">presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Anurag Arnab, Philip H.S Torr <br>
+										 <b>  Pixelwise Instance Segmentation via Dynamically Instantiated Network </b>,&nbsp;<i> in CVPR </i> 2017 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1704.02386" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+										  [<a href="https://docs.google.com/presentation/d/1DNV3F5WqsaseDVuVxY7qi5LsaS0oS7y6zEGjuHpSjMY/edit#slide=id.gc6f73a04f_0_0" target="_blank" href="">presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">07.03.2018 (Kevis)</h3>
+
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Alejandro Newell, Zhiao Huang, and Jia Deng <br>
+										 <b> Associative Embedding: End-to-end Learning for Joint Detection and Grouping </b>,&nbsp;<i> in NIPS </i> 2017 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1611.05424" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">28.02.2018 (Sergi, Alberto)</h3>
+
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Linjie Yang, Yanran Wang, Xuehan Xiong, Jianchao Yang, Aggelos K. Katsaggelos <br>
+										 <b> Efficient Video Object Segmentation via Network Modulation </b>,&nbsp;<i> in arXiv </i> 2017 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1802.01218" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+										  [<a href="https://docs.google.com/presentation/d/1V31q8tSFtPDNPde-hqLrW-Gk2v7pgZ_IPyHBlCwlUvE/edit#slide=id.gc6f73a04f_0_0" target="_blank" href="">presentation</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Bert De Brabandere, Davy Neven, Luc Van Gool <br>
+										 <b> Semantic Instance Segmentation with a Discriminative Loss Function </b>,&nbsp;<i> in arXiv </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1708.02551">paper</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">13.12.2017 (Yuhua, Sergi)</h3>
+
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Chao Peng, Tete Xiao, Zeming Li, Yuning Jiang, Xiangyu Zhang, Kai Jia, Gang Yu, Jian Sun <br>
+										 <b> MegDet: A Large Mini-Batch Object Detector </b>,&nbsp;<i> in arXiv </i> 2017 <br> (Full Paper) <br>
+										  [<a href="https://arxiv.org/abs/1711.07240" target="_blank" href="">paper</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Ronghang Hu, Piotr Dollár, Kaiming He, Trevor Darrell, Ross Girshick <br>
+										 <b> Learning to Segment Every Thing </b>,&nbsp;<i> in arXiv </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1711.10370">paper</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+			<!-- 		<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Undecided <br>
+										 <b> Undecided </b>,&nbsp;<i> in - </i> 201X <br> (Full Paper) <br>
+										  [<a target="_blank" href="">paper</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div> -->
+
+					<h3 class="discr">29.11.2017 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>Xiaolong Wang, Ross Girshick, Abhinav Gupta, Kaiming He<br>
+										 <b>Non-local Neural Networks</b>,&nbsp;<i>in arXiv</i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1711.07971">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>Yuan-Ting Hu, Jia-Bin Huang, Alexander Schwing <br>
+										 <b>MaskRNN: Instance Level Video Object Segmentation</b>,&nbsp;<i>in NIPS</i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://papers.nips.cc/paper/6636-maskrnn-instance-level-video-object-segmentation">paper</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">01.11.2017 (Sergi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Jun Hao Liew, Yunchao Wei, Wei Xiong, Sim-Heng Ong, Jiashi Feng <br>
+										 <b>Regional Interactive Image Segmentation Networks </b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="http://openaccess.thecvf.com/content_iccv_2017/html/Liew_Regional_Interactive_Image_ICCV_2017_paper.html">paper</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">18.10.2017 (Jordi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Christoph Feichtenhofer, Axel Pinz, Andrew Zisserman <br>
+										 <b>Detect to Track and Track to Detect </b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1710.03958">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">11.10.2017 (Alberto, Jordi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Xin Li, Zequn Jie, Wei Wang, Changsong Liu, Jimei Yang, Xiaohui Shen, Zhe Lin, Qiang Chen, Shuicheng Yan, Jiashi Feng <br>
+										 <b>FoveaNet: Perspective-aware Urban Scene Parsing</b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1708.02421">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Ning Xu, Brian Price, Scott Cohen, Jimei Yang, Thomas Huang <br>
+										 <b>Deep GrabCut for Object Selection</b>,&nbsp;<i>in BMVC </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1707.00243">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Ning Xu, Brian Price, Scott Cohen, Jimei Yang, Thomas Huang <br>
+										 <b>Deep Interactive Object Selection</b>,&nbsp;<i>in CVPR </i> 2016 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1603.04042">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">04.10.2017 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Amy Bearman, Olga Russakovsky, Vittorio Ferrari, Li Fei-Fei <br>
+										 <b>What's the Point: Semantic Segmentation with Point Supervision</b>,&nbsp;<i>in ECCV </i> 2016 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1506.02106">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">27.09.2017 (Sergi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Pavel Tokmakov, Karteek Alahari, Cordelia Schmid <br>
+										 <b>Learning Video Object Segmentation with Visual Memory</b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1704.05737">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">13.09.2017 (Jordi) at 10:30</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> D. P. Papadopoulos, J. R. R. Uijlings, F. Keller and V. Ferrari <br>
+										 <b>Extreme clicking for efficient object annotation</b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1708.02750">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">30.08.2017 (Yuhua) at 09:30</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Jifeng Dai, Haozhi Qi, Yuwen Xiong, Yi Li, Guodong Zhang, Han Hu, Yichen Wei <br>
+										 <b>Deformable Convolutional Networks</b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1703.06211">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">23.08.2017 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, Piotr Dollar <br>
+										 <b>Focal Loss for Dense Object Detection</b>,&nbsp;<i>in ICCV </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1708.02002">arXiv</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">16.08.2017 (Jordi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Chen, Yongjun; Davidson, Ian; Cai, Lei; Davidson, Ian; Ji, Shuiwang <br>
+										 <b>Dense Transformer Networks</b>,&nbsp;<i>in arXiv </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1705.08881">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/divelab/dtn">Code</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://arxiv.org/abs/1506.02025">Prerequisite Paper (STNs)</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					
+					<h3 class="discr">12.07.2017 (Jordi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Rui Yang, Bingbing Ni, Chao Ma, Yi Xu, Xiaokang Yang <br>
+										 <b>Video Segmentation via Multiple Granularity Analysis</b>,&nbsp;<i>in CVPR </i> 2017 <br> (Full Paper) <br>
+										  [<a target="_blank" href="https://drive.google.com/file/d/0B8-i_hZvGyZNLUpaZFpEYlk4NHc/view">pdf</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">05.07.2017 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> David Bau, Bolei Zhou, Aditya Khosla, Aude Oliva, Antonio Torralba <br>
+										 <b>Network Dissection: Quantifying Interpretability of Deep Visual Representations</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full Paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1704.05796">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="http://netdissect.csail.mit.edu/">Project Page</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://docs.google.com/presentation/d/1mGySmuQ_1WocyNpMYuLOoun_F56dcU4rlGlxlgX8lbU/edit?usp=sharing">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Alejandro Newell, Kaiyu Yang, and Jia Deng <br>
+										 <b> (Re-implementing) Stacked Hourglass Networks for Human Pose Estimation (using PyTorch)</b>,&nbsp;<i>in ECCV</i> 2016<br>(Trick of the week)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1603.06937">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/anewell/pose-hg-demo">Code</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+					<h3 class="discr">28.06.2017 (Christos)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Tobias Pohlen, Alexander Hermans, Markus Mathias, Bastian Leibe <br>
+										 <b>Full-Resolution Residual Networks for Semantic Segmentation in Street Scenes</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full Paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1611.08323">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/TobyPDE/FRRN">Code</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">21.06.2017 (Miriam)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Pauline Luc, Camille Couprie, Soumith Chintala, Jakob Verbeek <br>
+										 <b>Semantic Segmentation using Adversarial Networks</b>,&nbsp;<i>in NIPS-W</i> 2016<br>(Full Paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1611.08408">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://docs.google.com/presentation/d/11qqOpR2kRGQ19cmPWo-JX4yJ0Tjxty-N9sX65W2RrrI/edit#slide=id.g22803e65c4_0_55">Presentation</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+
+			 	   <h3 class="discr">07.06.2017 (Sergi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, DavidWarde-Farley, Sherjil Ozair†, Aaron Courville, Yoshua Bengio <br>
+										 <b>Generative Adversarial Networks</b>,&nbsp;<i>in NIPS</i> 2014<br>(Full Paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1406.2661">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://docs.google.com/presentation/d/1eqV4-_Vz8plWvVAGRYcK75fkt67ZltTxN7cbISIuPMY/edit?usp=sharing">Presentation</a>] &nbsp;&nbsp;
+
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>  
+					
+					<h3 class="discr">31.05.2017 (Yuhua)</h3>
+					
+					
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Di Lin, Jifeng Dai, Jiaya Jia, Kaiming He, Jian Sun <br>
+										 <b>ScribbleSup: Scribble-Supervised Convolutional Networks for Semantic Segmentation</b>,&nbsp;<i>in CVPR</i> 2016<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1604.05144">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<h3 class="discr">24.05.2017 (Kevis, Sergi)</h3>
+					
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Alireza Fathi, Zbigniew Wojna, Vivek Rathod, Peng Wang, Hyun Oh Song, Sergio Guadarrama, Kevin P. Murphy <br>
+										 <b>Semantic Instance Segmentation via Deep Metric Learning</b>,&nbsp;<i>in arXiv</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1703.10277">arXiv</a>] &nbsp;&nbsp;
+									 	  [<a target="_blank" href="https://docs.google.com/presentation/d/1HCjZ1_JDvfnf2yK0JzABRaqCN-sWCvhru3x6Cc17rWI/edit?usp=sharing">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Hongyang Gao, Hao Yuan, Zhengyang Wang, Shuiwang Ji <br>
+										 <b>Pixel Deconvolutional Network</b>,&nbsp;<i>in arXiv</i> 2017<br>(Trick of the week)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1705.06820">arXiv</a>] &nbsp;&nbsp;
+									 	  [<a target="_blank" href="https://docs.google.com/presentation/d/1TLD2m3p2o5CLllULa8OhxXF7Ac7pVRCE533DUbB9HiY/edit#slide=id.g224df10e39_0_0">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div> 
+
+				   <h3 class="discr">17.05.2017 (Carles)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Bolei Zhou, Hang Zhao, Xavier Puig, Sanja Fidler, Adela Barriuso and Antonio Torralba <br>
+										 <b>Scene Parsing through ADE20K Dataset</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="http://people.csail.mit.edu/bzhou/publication/scene-parse-camera-ready.pdf">Paper</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="http://scenesegmentation.csail.mit.edu/">Demo</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/CSAILVision/sceneparsing/">Code</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+				   <h3 class="discr">10.05.2017 (Christos, Sergi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Hengshuang Zhao, Jianping Shi, Xiaojuan Qi, Xiaogang Wang, Jiaya Jia <br>
+										 <b>Pyramid Scene Parsing Network</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1612.01105">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/hszhao/PSPNet">Code</a>] &nbsp;&nbsp; 
+										  <!--[<a target="_blank" href="">-</a>] &nbsp;&nbsp;-->
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Leslie N. Smith <br>
+										 <b>Cyclical Learning Rates for Training Neural Networks</b>,&nbsp;<i>in WACV</i> 2017<br>(Trick of the week)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1506.01186">arXiv</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					
+
+
+					<h3 class="discr">03.05.2017 (Sergi, Miriam)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						  <tr>
+								<td>
+									 <p> Lluis Castrejon, Kaustav Kundu, Raquel Urtasun, Sanja Fidler <br>
+										 <b>Annotating Object Instances with a Polygon-RNN</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1704.05548">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://docs.google.com/presentation/d/1k1rK296iGFFKtddaT8xuoxQhzb4NPfvY7BL0x42qjK0/edit#slide=id.gc6f73a04f_0_0">Presentation</a>] &nbsp;&nbsp;
+										  
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Kuan-Lun Tseng, Yen-Liang Lin, Winston Hsu, Chung-Yang Huang <br>
+										 <b>Joint Sequence Learning and Cross-Modality Convolution for 3D Biomedical Segmentation</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1704.07754">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://docs.google.com/presentation/d/1ObdVwVo4YBgN4r0_WwY1nrHkABo43ylcWo8aEto_lP4/edit#slide=id.p">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+
+
+
+				   <h3 class="discr">26.04.2017 (Yuhua, Jordi)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Kaiming He, Georgia Gkioxari, Piotr Dollár, Ross Girshick <br>
+										 <b>Mask R-CNN</b>,&nbsp;<i>in arXiv</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1703.06870">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://docs.google.com/presentation/d/1gA57AvsuYSb-tN_4SwRkUB7wukDt009xWdQa56AzGvk/edit?usp=sharing">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p> Ronghang Hu, Marcus Rohrbach, Trevor Darrell <br>
+										 <b>Segmentation from Natural Language Expressions</b>,&nbsp;<i>in ECCV</i> 2016<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1603.06180">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/ronghanghu/text_objseg">Code</a>] &nbsp;&nbsp; 
+										  <!--[<a target="_blank" href="">-</a>] &nbsp;&nbsp;-->
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>		
+
+
+
+					<h3 class="discr">19.04.2017 (Kevis)</h3>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Yi Li*, Haozhi Qi*, Jifeng Dai, Xiangyang Ji, Yichen Wei <br>
+										 <b>Fully Convolutional Instance-aware Semantic Segmentation</b>,&nbsp;<i>in CVPR</i> 2017<br>(Full paper)<br>
+										  [<a target="_blank" href="https://arxiv.org/abs/1611.07709" >arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/daijifeng001/TA-FCN">Code</a>] &nbsp;&nbsp; 
+										  [<a target="_blank" href="https://data.vision.ee.ethz.ch/kmaninis/share/ReadingGroup/2017_04_19_ReadingGroup_FCIS_DiffDice.pptx">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>
+					<div style="margin-top: 5px; margin-bottom:27px;">
+					<table cellpadding="8">
+						 <tr>
+								<td>
+									 <p>  Fausto Milletari, Nassir Navab, Seyed-Ahmad Ahmadi <br>
+										 <b>V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation</b>,&nbsp;<i>in 3DV</i> 2016<br>(Trick of the week)<br> 
+										  [<a target="_blank" href="https://arxiv.org/abs/1606.04797">arXiv</a>] &nbsp;&nbsp;
+										  [<a target="_blank" href="https://github.com/faustomilletari/VNet">Code</a>] &nbsp;&nbsp; 
+										  [<a target="_blank" href="https://data.vision.ee.ethz.ch/kmaninis/share/ReadingGroup/2017_04_19_ReadingGroup_FCIS_DiffDice.pptx">Presentation</a>] &nbsp;&nbsp;
+									 </p>
+								</td>
+						 </tr>
+					</table>
+					</div>	
+					</div>						
+				</article>
+		</div>
+	</div>			
+</section>
+
+<section class="content-box box-3" id="future">
+	<div class="zerogrid">
+		<div class="row wrap-box t-center" style="margin-left:10%;margin-right:10%;"><!--Start Box-->
+			<hr class="line-2">
+				<h2 style="margin-bottom:20px">Future Papers</h2>
+				<div>
+					To facilitate scheduling, if you would like to present something, please add your preferences to <a target="_blank" href="https://docs.google.com/spreadsheets/d/1KAo3syx6_TPRecnzJlJEVoZSkxCPmBlx-kUOTNvcTNM/edit?usp=sharing">this list</a>.<br>
+				</div>
+		</div>
+	</div>
+</section>
+
+
+</div>
+</body></html>

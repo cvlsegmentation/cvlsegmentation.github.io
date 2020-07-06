@@ -1,0 +1,67 @@
+<head>
+
+<!--Includes-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<style type="text/css">
+	.before_after_slider {
+  position: relative;
+  margin: 60px;
+  width: 640px;
+  height: 400px;
+  float: left;
+}
+.before_after_slider > * {
+  position: absolute;
+}
+
+.black_white {
+  overflow: hidden;
+}
+</style>
+</head>
+
+
+
+<main>
+
+
+<div class="before_after_slider">
+  <div class="color">
+    <img src="img/im0162.png" height="640" alt="" />
+  </div>
+  <div class="black_white">
+    <img src="img/im0162_masked.png" height="640"  alt="black_white" />
+  </div>
+</div>
+<div class="before_after_slider">
+  <div class="color">
+    <img src="img/01_test.png" height="640" alt="" />
+  </div>
+  <div class="black_white">
+    <img src="img/norm_01_test.png" height="640"  alt="black_white" />
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+	var $black_white = $('.black_white'),
+		img_width = $('.black_white img').width(),
+		init_split = Math.round(img_width/2);
+  
+  $black_white.width(init_split);  
+
+		$('.before_after_slider').mousemove(function(e){
+		var offX  = (e.offsetX || e.clientX - $black_white.offset().left);
+			$black_white.width(offX);
+		});
+
+		$('.before_after_slider').mouseleave(function(e){
+		$black_white.stop().animate({
+		width: init_split
+		},1000)
+		});
+		});
+</script>
+</main>

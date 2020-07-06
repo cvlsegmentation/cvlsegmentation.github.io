@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<link rel="shortcut icon" href="images/icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Deep Retinal Image Understanding">
+
+    <title>Deep Retinal Image Understanding</title>
+	 <script src='js/jquery-2.1.1.js'></script>
+  	 <script src='js/jquery.elevatezoom.js'></script>
+    <!-- Buttons -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/buttons/component.css" /> -->
+
+    <!-- Google analytics -->
+    // <script>
+    //   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    //   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    //   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    //   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    //   ga('create', 'UA-66736701-1', 'auto');
+    //   ga('send', 'pageview');
+    // </script>
+
+	<link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.6.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+    
+<!--     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
+</head>
+
+<style type="text/css">
+    /*********************************
+    The list of publication items
+    *********************************/
+    /* The list of items */
+    .biblist { }
+
+    /* The item */
+    .biblist li { }
+
+    /* You can define custom styles for plstyle field here. */
+
+
+    /*************************************
+     The box that contain BibTeX code
+     *************************************/
+    div.noshow { display: none; }
+    div.bibtex {
+        margin-right: 0%;
+        margin-top: 1.2em;
+        margin-bottom: 1.3em;
+        border: 1px solid silver;
+        padding: 0.3em 0.5em;
+        background: #ffffee;
+    }
+    div.bibtex pre { font-size: 75%; overflow: auto;  width: 100%; }
+
+
+    .content-subhead{color: black}
+</style>
+
+<script type="text/javascript">
+ <!--
+ // Toggle Display of BibTeX
+ function toggleBibtex(articleid) {
+     var bib = document.getElementById('bib_'+articleid);
+     if (bib) {
+         if(bib.className.indexOf('bibtex') != -1) {
+             bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex';
+         }
+     } else {
+         return;
+     }
+ }
+-->
+</script>
+
+
+<body>
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+
+            <ul class="pure-menu-list">
+                <li><a class="pure-menu-link pure-menu-selected">Home</a></li>
+                <li><a href="soa_compare.php" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="browse_DRIVE.php" class="pure-menu-link">Explore SoA</a></li>
+                <li><a href="downloads.html" class="pure-menu-link">Downloads</a></li>
+                <li><a href="contact.php" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Deep Retinal Image Understanding (DRIU)</h1>
+            <h2>State of the art in retinal vessel and optic disc segmentation</h2>
+        </div>
+        <div class="content">
+			<div class="pure-g" style="margin-top:15px;">
+                <div class="pure-u-1-4" style="text-align:left;"><img src="images/logos-1.png" alt="" style="width:95%;margin-top:26px;"></div>
+                <div class="pure-u-1-4" style="text-align:center;"><a href="http://www.vision.ee.ethz.ch" target="_blank"><img src="images/logos-2.png" alt="" style="width:105%;margin-top:15px;margin-left:15%;"></a></div>
+                <div class="pure-u-1-4" style="text-align:center;"><a href="https://biomedicalcomputervision.uniandes.edu.co" target="_blank"><img src="images/uniandes.png" alt="" style="width:75%;margin-top:18px;margin-left:40%;"></a></div>
+                <div class="pure-u-1-4" style="text-align:right;"><a href="https://www.eureyecase.eu/" target="_blank"><img src="images/logos-3.png" alt="" style="width:50%;margin-top:20px;"></a></div>
+            </div><br>
+
+            <h2 class="content-subhead" style="margin-top:5px;margin-bottom:12px">Publications</h2>
+
+            <div class="pure-g">
+                <div class="pure-u-5-6" style="width:16%">
+                    <img class="pure-img-responsive" style="margin-top:5px; width:100%;" src="images/CNN_MICCAI_thumb.png" alt="MICCAI">
+                </div>
+                <div class="pure-u-5-6" style="width:75%;">
+                <p style="margin-left:0.6cm;line-height: 1.4em;margin-top:1em;">
+                    <a href="http://www.vision.ee.ethz.ch/~kmaninis" target="_blank"/>K.K. Maninis</a>,
+                    <a href="http://jponttuset.github.io" target="_blank">J. Pont-Tuset</a>,
+                    <a href="https://biomedicalcomputervision.uniandes.edu.co/" target="_blank">P. Arbeláez</a>, and
+                    <a href="https://www.vision.ee.ethz.ch/en/members/get_member.cgi?id=1" target="_blank">L. Van Gool</a>
+                    <br>
+                    Deep Retinal Image Understanding<br>
+                    <i>Medical Image Computing and Computer-Assisted Intervention (MICCAI) 2016</i><br>
+                    [<a href="data/paper/DRIU_MICCAI2016.pdf" target="_blank">PDF</a>] [<a href="data/paper/DRIU_MICCAI2016_Supp.pdf" target="_blank">Supplemental</a>] [<a href="javascript:toggleBibtex('Man+16')">BibTex</a>]
+                </p>
+                </div>
+            </div>
+            <div id="bib_Man+16" class="bibtex noshow"><pre>@inproceedings{Man+16,<br/>  author = {Kevis-Kokitsi Maninis and Jordi Pont-Tuset and Pablo Arbel\'{a}ez and Luc Van Gool},<br/>  title = {Deep Retinal Image Understanding},<br/>  booktitle = {Medical Image Computing and Computer-Assisted Intervention (MICCAI)},<br/>  year = {2016}<br/>}</pre></div>
+
+            <i>Please cite this paper if you found the resources of this web useful.</i>
+
+
+        <h2 class="content-subhead" style="margin-top:33px;margin-bottom:0px">Abstract</h2>
+        <p align="justify" style="font-size:90%;margin-top:10px">
+            This paper presents Deep Retinal Image Understanding (DRIU), a unified framework of retinal image analysis that provides both retinal vessel and optic disc segmentation using deep Convolutional Neural Networks (CNNs). We show both qualitative and quantitative experimental validation in four public datasets, on which DRIU presents super-human performance.
+        </p>
+
+        <center><h3 class="content-subhead" style="margin-top:33px; margin-bottom:-2px;">Click on the image to see DRIU detections</h3>
+         <div class="pure-g">
+                <div class="pure-u-1-1">
+                  <img id="zoom_07"  src="img/01_test.png" data-zoom-image="img/01_test_overlay.png"/>
+                </div>
+        </div></center>      
+           
+            <h2 class="content-subhead" style="margin-bottom:0px">Benchmark State-of-the-Art</h2>
+            <p style="margin-top:10px">
+                Display the evaluation of the current State-of-the-Art retinal vessel and optic disc segmentation techniques.
+            </p>
+
+            <h2 class="content-subhead" style="margin-bottom:0px;margin-top:35px;">Explore State-of-the-Art Results</h2>
+            <p style="margin-top:10px;">
+                Visualize the segmentation results for all state-of-the-Art techniques on all testing images of DRIVE, STARE, DRIONS-DB and RIM-ONE-r3 datasets.
+            </p>
+
+            <h2 class="content-subhead" style="margin-bottom:0px;margin-top:35px;">Downloads</h2>
+            <p style="margin-top:10px;margin-bottom:30px">
+                Download the pre-computed results from DRIU, as well as all other techniques.
+            </p>
+        </div>
+    </div>
+</div>
+http://people
+
+
+http://people
+
+<script src="js/ui.js"></script>
+<script type="text/javascript">
+$("#zoom_07").elevateZoom({ zoomType	: "lens", lensShape : "round", lensSize : 200, zoomLevel: 1 }); 
+</script>
+
+<script>
+//function changeImage() {
+ //   var image = document.getElementById('zoom_07');
+  //  if (image.src.match("overlay")) {
+  //      image.src = image.src.replace("_overlay","");
+  //  } else {
+  //  	  image.dataset["zoomImage"]=image.src;
+  //      image.src = image.src.replace(".png","_overlay.png");
+  //      
+  //  }
+//}
+</script>
+
+</body>
+</html>

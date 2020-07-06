@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>CVL Segmentation</title>
+	<meta name="description" content="CVL Segmentation">
+	<meta name="author" content="CVL">
+	
+    <!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+	================================================== -->
+  	<link rel="stylesheet" href="css/zerogrid.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/lightbox.css">
+	
+	<!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+	
+	
+	<link rel="stylesheet" href="css/menu.css">
+	<script src="js/jquery1111.min.js" type="text/javascript"></script>
+	<script src="js/script.js"></script>
+	
+	<link rel="shortcut icon" href="images/icon.png">
+	
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/Items/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+	<![endif]-->
+	
+<style type="text/css">
+    /*********************************
+    The list of publication items
+    *********************************/
+    /* The list of items */
+    .biblist { }
+
+    /* The item */
+    .biblist li { }
+
+    /* You can define custom styles for plstyle field here. */
+
+
+    /*************************************
+     The box that contain BibTeX code
+     *************************************/
+    div.noshow { display: none; }
+    div.bibtex {
+        margin-right: 0%;
+        margin-top: 1.2em;
+        margin-bottom: 1.3em;
+        border: 1px solid silver;
+        padding: 0.3em 0.5em;
+        background: #ffffee;
+    }
+    div.bibtex pre { font-size: 75%; overflow: auto;  width: 100%; }
+
+
+    .content-subhead{color: black}
+</style>
+
+<script type="text/javascript">
+ <!--
+ // Toggle Display of BibTeX
+ function toggleBibtex(articleid) {
+     var bib = document.getElementById('bib_'+articleid);
+     if (bib) {
+         if(bib.className.indexOf('bibtex') != -1) {
+             bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex';
+         }
+     } else {
+         return;
+     }
+ }
+-->
+</script>
+</head>
+
+<body>
+<div class="wrap-body">
+
+	<!--////////////////////////////////////Header-->
+	<header class="zerogrid">
+		<div id='cssmenu' class="align-center">
+			<ul>
+			   <li class="active"><a href='index.html'><span>Home</span></a></li>
+<!-- 			   <li><a href='#'><span>News</span></a></li>-->
+			   <li><a href='#publications'><span>Publications</span></a></li>
+			   <li><a href='#team'><span>Team</span></a></li>
+			   <li class='last'  style="margin-top:-7px;"><a href="https://twitter.com/intent/tweet?text=ETHZ%20CVL%20Segmentation projects!%20http://vision.ee.ethz.ch/~cvlsegmentation/seism/%20%40jponttuset%20%40kmaninis%20%40skprat%20"><i class="fa fa-twitter fa-2x"></i></a></li>
+			</ul>
+		</div>
+	</header>
+
+
+<!--////////////////////////////////////Container-->
+<section id="container">
+	<div class="wrap-container">
+		<!-----------------content-box-2-------------------->
+		<section class="content-box box-2">
+			<div class="zerogrid">
+				<div class="row wrap-box"><!--Start Box-->
+					<div class="header">
+						<hr class="line-2">
+						<h2>Image and Video Segmentation @ ETHZ CVL</h2>
+						<span  style="line-height: 1.2">From evaluation to State-of-the-Art Results</span>
+					</div>	
+					<div class="row">
+                        <div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Deep Extreme Cut: From Extreme Points to Object Segmentation</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/dextr/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>DEXTR explores the use of extreme points in an object (left-most, right-most, top, bottom pixels) as input to obtain precise object segmentation for images and videos. We do so by adding an extra channel to the image in the input of a convolutional neural network (CNN), which contains a Gaussian centered in each of the extreme points.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/dextr.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>One-Shot Video Object Segmentation</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/osvos/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>OSVOS is based on a fully-convolutional neural network architecture that
+is able to successively transfer generic semantic information, learned on ImageNet, to the task of foreground segmentation, and finally to learning the appearance of a single annotated object of the test sequence (hence one-shot). OSVOS is very fast and improves the state of the art by a significant margin.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/OSVOS.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Convolutional Oriented Boundaries</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/cob/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>COB is a technique that produces multiscale oriented contours and region hierarchies from a single forward pass of a generic image classification CNN. The whole pipeline runs in the order of 0.8 seconds per image to produce state-of-the-art hierarchical boundaries.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/COB.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Retinal Image Segmentation and Understanding</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/driu/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>This project presents Deep Retinal Image Understanding (DRIU), a unified framework of retinal image analysis that provides both retinal vessel and optic disc segmentation using deep Convolutional Neural Networks (CNNs). We show both qualitative and quantitative experimental validation in four public datasets, on which DRIU presents super-human performance.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/driu.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Video Object Segmentation Benchmark</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.davischallenge.org" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>In this project we present a new benchmark dataset and evaluation methodology for video object segmentation - DAVIS (Densely Annotated VIdeo Segmentation), which consists of fifty high quality, Full HD video sequences, accompanied by densely annotated, pixel-accurate and per-frame ground truth segmentation. We provide a comprehensive analysis of several state-of-the-art segmentation approaches using three complementary metrics.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/davis.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Image Segmentation Evaluation</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/seism/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>This project tackles the supervised evaluation of image segmentation algorithms, it proposes a new measure: the precision-recall for objects and parts, and it defines three quantitative meta-measures involving six state of the art segmentation methods. As a conclusion, this paper proposes the precision-recall curves for boundaries and for objects-and-parts as the tool of choice for the supervised evaluation of image segmentation.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/seism.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Segmentation Hierarchies Alignment</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="https://github.com/yuhuayc/alignhier" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span> This work tries to modify the existing
+												hierarchical algorithm by improving their alignment, that
+												is, by trying to modify the depth of the regions in the tree
+												to better couple depth and scale.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/Align.png" alt=""/>
+							</div>
+						</div>
+
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Boosting and Benchmarking Segmented Object Proposals</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://vision.ee.ethz.ch/~biwiproposals/boosting-coco/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>In-depth evaluation of object proposals and the challenges faced when 
+												generalizing the experiments from PASCAL to COCO. Interactive browsing of all the state of the art.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/Boosting.png" alt=""/>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="item-container" style="margin-bottom:0px;">
+								<div class="title">
+									<h2>Object Proposals: Multiscale Combinatorial Grouping</h2>
+								</div>
+								<div class="item-caption black">
+									<a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/mcg/" target="_blank">
+										<div class="item-caption-inner">
+											<div class="item-caption-inner1">
+												<span>State-of-the-art object proposals starting from a segmentation hierarchy and generating combinations of pairs and triplets of neighboring regions.</span>
+											</div>
+										</div>
+									</a>
+								</div>
+								<img  src="images/MCG.png" alt=""/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-----------------content-box-3-------------------->
+		<!-- <section class="content-box box-3">
+			<div class="zerogrid">
+				<div class="row wrap-box">
+					<div class="header">
+						<h2>Latest news:</h2>
+					</div>	
+					<div class="row">
+						<div class="col-1-3">
+							<div class="wrap-col">
+								<div class="title">
+									<span><strong>May</strong>16</span>
+								</div>
+								<p style="text-align:center;"">One paper accepted at MICCAI 2016.</p>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="wrap-col">
+								<div class="title">
+									<span>March<strong>16</strong></span>
+								</div>
+								<p style="text-align:center;">One paper accepted at PAMI.</p>
+							</div>
+						</div>
+						<div class="col-1-3">
+							<div class="wrap-col">
+								<div class="title">
+									<span><strong>Feb</strong>16</span>
+								</div>
+								<p style="text-align:center;"">Two papers accepted at CVPR 2016.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section> -->
+	</div>
+</section>
+<section class="content-box box-3" id="publications" style="margin-top:80px;">
+	<div class="zerogrid">
+		<div class="row wrap-box"><!--Start Box-->
+			<div class="header">
+				<h2>Publications:</h2>
+				<div class="row">
+						<div class="col-1-2" style="text-align:left;line-height:150%;">
+				<!-- Generated from JabRef by PubList by Truong Nghiem at 03:08 on 2016.06.24. -->
+<ul class="biblist">
+
+<!-- Item: Man+18b -->
+<li style="margin-bottom:30px;"><p>
+K.K. Maninis, S. Caelles, Y. Chen, J. Pont-Tuset, L. Leal-Taixé and L. Van Gool
+<br><b>Video Object Segmentation Without Temporal Information</b><br>
+<i>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</i>, 2018
+<br />
+<a href="javascript:toggleBibtex('Man+18b')">[BibTeX]</a>
+<a href="https://arxiv.org/pdf/1709.06031" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/osvos-s/" target="_blank">
+[Project Page]</a>
+</p>
+<div id="bib_Man+18b" class="bibtex noshow">
+<pre>
+@article{Man+18b,
+  author 	= {K.-K. Maninis and S. Caelles and Y. Chen and J. Pont-Tuset and L. Leal Taix\'{e} and L. {Van Gool}},
+  title 	= {Video Object Segmentation Without Temporal Information},
+  journal	= {IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  year 		= {2018}
+}
+</pre>
+</div>
+</li>
+
+
+<!-- Item: Man+18 -->
+<li style="margin-bottom:30px;"><p>
+K.K. Maninis, S. Caelles, J. Pont-Tuset and L. Van Gool
+<br><b>Deep Extreme Cut: From Extreme Points to Object Segmentation</b><br>
+<i>Computer Vision and Pattern Recognition (CVPR)</i>, 2018
+<br />
+<a href="javascript:toggleBibtex('Man+18')">[BibTeX]</a>
+<a href="https://arxiv.org/pdf/1711.09081" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/dextr/" target="_blank">
+[Project Page]</a>
+</p>
+<div id="bib_Man+18" class="bibtex noshow">
+<pre>
+@inproceedings{Man+18,
+  author 	= {K.-K. Maninis and S. Caelles and J. Pont-Tuset and L. {Van Gool}},
+  title 	= {Deep Extreme Cut: From Extreme Points to Object Segmentation},
+  booktitle	= {Computer Vision and Pattern Recognition (CVPR)},
+  year 		= {2018}
+}
+</pre>
+</div>
+</li>
+
+
+<!-- Item: Maninis2017 -->
+<li style="margin-bottom:30px;"><p>
+K.K. Maninis, J. Pont-Tuset, P. Arbel&aacute;ez, and L. Van Gool
+<br><b>Convolutional Oriented Boundaries: From Image Segmentation to High-Level Tasks</b><br>
+<i>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI),<br> vol. 40, no. 4, pp. 819 - 833, 2018.</i>, 2018
+<br />
+<a href="javascript:toggleBibtex('Maninis2017')">[BibTeX]</a>
+<a href="https://arxiv.org/pdf/1701.04658" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/cob/" target="_blank">
+[Project Page]</a> 
+</p>
+<div id="bib_Maninis2017" class="bibtex noshow">
+<pre>
+@article{Maninis2017,
+  author = {K.K. Maninis and J. Pont-Tuset and P. Arbel\'{a}ez and L. Van Gool},
+  title = {Convolutional Oriented Boundaries: From Image Segmentation to High-Level Tasks},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  year = {2017},
+  volume = {40},
+  number = {4},
+  pages = {819 - 833}
+}
+</pre>
+</div>
+</li>
+
+
+<!-- Item: Maninis2016a -->
+<li style="margin-bottom:30px;"><p>
+<a href="http://www.vision.ee.ethz.ch/~kmaninis" target="_blank">K.K. Maninis</a>, J. Pont-Tuset, <a href="https://biomedicalcomputervision.uniandes.edu.co" target="_blank">P. Arbeláez</a> and <a href="http://www.vision.ee.ethz.ch/members/get_member.cgi?id=1" target="_blank">L. Van Gool</a>
+<br><b>Convolutional Oriented Boundaries</b><br>
+<i>European Conference on Computer Vision (ECCV)</i>,
+2016
+
+<br />
+<a href="javascript:toggleBibtex('Maninis2016a')">[BibTeX]</a>
+<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/cob/data/COB_ECCV16.pdf" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/cob/" target="_blank">
+[Project Page]</a> 
+</p>
+<div id="bib_Maninis2016a" class="bibtex noshow">
+<pre>
+@inproceedings{Maninis2016a,
+  author = {K.K. Maninis and J. Pont-Tuset and P. Arbel\'{a}ez and L. Van Gool},
+  title = {Convolutional Oriented Boundaries},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year = {2016}
+}
+</pre>
+</div>
+</li>
+
+
+<!-- Item: Chen2016 -->
+<li style="margin-bottom:30px;"><p>
+Y. Chen, D. Dai, J. Pont-Tuset and L. Van Gool
+<br><b>Scale-Aware Alignment of Hierarchical Image Segmentation</b><br>
+<i>Computer Vision and Pattern Recognition (CVPR)</i>,
+2016
+<br />
+<a href="javascript:toggleBibtex('Chen2016')">[BibTeX]</a>
+<a href="https://www.vision.ee.ethz.ch/en/publications/papers/proceedings/eth_biwi_01271.pdf" target="_blank">[PDF]</a> <a href="https://github.com/yuhuayc/alignhier" target="_blank">
+[Project Page]</a> 
+</p>
+<div id="bib_Chen2016" class="bibtex noshow">
+<pre>
+@inproceedings{Chen2016,
+  author = {Y. Chen and D. Dai and J. Pont-Tuset and L. Van Gool},
+  title = {Scale-Aware Alignment of Hierarchical Image Segmentation},
+  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
+  year = {2016}
+}
+</pre>
+</div>
+</li>
+
+
+
+
+
+<!-- Item: Pont-Tuset2016a -->
+<li style="margin-bottom:30px;"><p>
+J. Pont-Tuset and F. Marques
+<br><b>Supervised Evaluation of Image Segmentation and Object Proposal Techniques</b><br>
+<i>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</i>,
+vol. 38,
+no. 7,
+pp. 1465-1478,
+2016
+<br />
+<a href="javascript:toggleBibtex('Pont-Tuset2016a')">[BibTeX]</a>
+<a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=7274729" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/seism/index.html" target="_blank">
+[Project Page]</a> 
+</p>
+<div id="bib_Pont-Tuset2016a" class="bibtex noshow">
+<pre>
+@article{Pont-Tuset2016a,
+  author = {Jordi Pont-Tuset and Ferran Marques},
+  title = {Supervised Evaluation of Image Segmentation and Object Proposal Techniques},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  year = {2016},
+  volume = {38},
+  number = {7},
+  pages = {1465--1478}
+}
+</pre>
+</div>
+</li>
+
+
+
+
+<!-- Item: Pont-Tuset2015b -->
+<li style="margin-bottom:30px;"><p>
+J. Pont-Tuset and L. Van Gool
+<br><b>Boosting Object Proposals: From Pascal to COCO</b><br>
+<i>International Conference on Computer Vision (ICCV)</i>,
+2015
+<br/>
+<a href="javascript:toggleBibtex('Pont-Tuset2015b')">[BibTeX]</a>
+<a href="http://www.vision.ee.ethz.ch/~biwiproposals/boosting-coco/data/PontTusetVanGool-Boosting-ICCV2015.pdf" target="_blank">[PDF]</a> <a href="http://vision.ee.ethz.ch/~biwiproposals/boosting-coco/" target="_blank">
+[Project Page]</a> 
+</p>
+<div id="bib_Pont-Tuset2015b" class="bibtex noshow">
+<pre>
+@inproceedings{Pont-Tuset2015b,
+  author = {Jordi Pont-Tuset and Luc Van Gool},
+  title = {Boosting Object Proposals: From Pascal to COCO},
+  booktitle = {International Conference on Computer Vision (ICCV)},
+  year = {2015}
+}
+</pre>
+</div>
+</li>
+
+</div>
+
+
+
+
+
+
+
+
+
+        <div class="col-1-2" style="text-align:left;line-height:150%;">
+        <ul class="biblist">
+
+
+            <!-- Item: Caelles2016 -->
+        <li  style="margin-bottom:30px;"><p>
+        <a href="https://sergicaelles.com/" target="_blank">S. Caelles</a>, <a href="http://www.vision.ee.ethz.ch/~kmaninis" target="_blank">K.K. Maninis</a>, J. Pont-Tuset, <a href="https://lealtaixe.github.io" target="_blank">L. Leal-Taixé</a>,
+        <a href="http://vision.in.tum.de/members/cremers" target="_blank">D. Cremers</a>, and <a href="http://www.vision.ee.ethz.ch/members/get_member.cgi?id=1" target="_blank">L. Van Gool</a>
+        <br><b>One-Shot Video Object Segmentation</b><br>
+        <i>Computer Vision and Pattern Recognition (CVPR)</i>,
+        2017
+        <br />
+        <a href="javascript:toggleBibtex('Caelles2017')">[BibTeX]</a>
+        <a href="https://arxiv.org/abs/1611.05198">[PDF]</a>
+        <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/osvos/" target="_blank">
+        [Project Page]</a>
+        </p>
+        <div id="bib_Caelles2017" class="bibtex noshow">
+        <pre>
+@inproceedings{Caelles2017,
+  author = {S. Caelles and K.-K. Maninis and J. Pont-Tuset and L. Leal-Taix\'e and D. Cremers and L. {Van Gool},
+  title = {One-Shot Video Object Segmentation},
+  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
+  year = {2017}
+}
+        </pre>
+        </div>
+        </li>
+
+
+
+
+        <!-- Item: Perazzi2016 -->
+        <li style="margin-bottom:30px;"><p>
+        F. Perazzi, J. Pont-Tuset, B. McWilliams, L. Van Gool, M. Gross and A. Sorkine-Hornung
+        <br><b>A Benchmark Dataset and Evaluation Methodology for Video Object Segmentation</b><br>
+        <i>Computer Vision and Pattern Recognition (CVPR)</i>,
+        2016
+        <br />
+        <a href="javascript:toggleBibtex('Perazzi2016')">[BibTeX]</a>
+        <a href="https://graphics.ethz.ch/~perazzif/davis/files/davis.pdf" target="_blank">[PDF]</a> <a href="https://graphics.ethz.ch/~perazzif/davis" target="_blank">
+        [Project Page]</a>
+        </p>
+        <div id="bib_Perazzi2016" class="bibtex noshow">
+        <pre>
+@inproceedings{Perazzi2016,
+  author = {F. Perazzi and J. Pont-Tuset and B. McWilliams and L. Van Gool and M. Gross and A. Sorkine-Hornung},
+  title = {A Benchmark Dataset and Evaluation Methodology for Video Object Segmentation},
+  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
+  year = {2016}
+}
+        </pre>
+        </div>
+        </li>
+
+
+        <!-- Item: Maninis2016 -->
+        <li style="margin-bottom:30px;"><p>
+        K.K. Maninis, J. Pont-Tuset, P. Arbel&aacute;ez and L. Van Gool
+        <br><b>Deep Retinal Image Understanding</b><br>
+        <i>Medical Image Computing and Computer-Assisted Intervention (MICCAI)</i>,
+        2016
+        <br />
+        <a href="javascript:toggleBibtex('Maninis2016')">[BibTeX]</a>
+        <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/driu/data/paper/DRIU_MICCAI2016.pdf" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/driu/" target="_blank">
+        [Project Page]</a>
+        </p>
+        <div id="bib_Maninis2016" class="bibtex noshow">
+        <pre>
+@inproceedings{Maninis2016,
+  author = {K.K. Maninis and J. Pont-Tuset and P. Arbel&aacute;ez and L. Van Gool},
+  title = {Deep Retinal Image Understanding},
+  booktitle = {Medical Image Computing and Computer-Assisted Intervention (MICCAI)},
+  year = {2016}
+}
+        </pre>
+        </div>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Item: Pont-Tuset2016 -->
+        <li style="margin-bottom:30px;"><p>
+        J. Pont-Tuset, P. Arbel&aacute;ez, J. Barron, F. Marques and J. Malik
+        <br><b>Multiscale Combinatorial Grouping for Image Segmentation and Object Proposal Generation</b><br>
+        <i>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</i>, vol. 39, no. 1, pp. 128-140, 2017
+        <br />
+        <a href="javascript:toggleBibtex('Pont-Tuset2017')">[BibTeX]</a>
+        <a href="http://ieeexplore.ieee.org/document/7423791/" target="_blank">[PDF]</a> <a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/mcg/" target="_blank">
+        [Project Page]</a>
+        </p>
+        <div id="bib_Pont-Tuset2017" class="bibtex noshow">
+        <pre>
+@article{Pont-Tuset2017,
+  author = {J. Pont-Tuset and P. Arbel\'{a}ez and J. Barron and F.Marques and J. Malik},
+  title = {Multiscale Combinatorial Grouping for Image Segmentation and Object Proposal Generation},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},
+  year = {2017},
+  volume = {39},
+  number = {1},
+  pages = {128 - 140}
+}
+        </pre>
+        </div>
+        </li>
+
+
+
+
+        <!-- Item: Arbelaez2014 -->
+        <li style="margin-bottom:30px;"><p>
+        P. Arbelaez, J. Pont-Tuset, J. Barron, F. Marques and J. Malik
+        <br><b>Multiscale Combinatorial Grouping</b><br>
+        <i>Computer Vision and Pattern Recognition (CVPR)</i>,
+        2014
+        <br/>
+        <a href="javascript:toggleBibtex('Arbelaez2014')">[BibTeX]</a>
+        <a href="https://imatge.upc.edu/web/sites/default/files/pub/cArbelaez14.pdf" target="_blank">[PDF]</a> <a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/mcg/" target="_blank">
+        [Project Page]</a>
+        </p>
+        <div id="bib_Arbelaez2014" class="bibtex noshow">
+        <pre>
+@inproceedings{Arbelaez2014,
+  author = {Arbelaez, Pablo and Pont-Tuset, J. and Barron, Jon and Marques, F. and Malik, Jitendra},
+  title = {Multiscale Combinatorial Grouping},
+  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
+  year = {2014}
+}
+        </pre>
+        </div>
+        </li>
+
+        <!-- Item: Pont-Tuset2013 -->
+        <li style="margin-bottom:30px;"><p>
+        J. Pont-Tuset and F. Marques
+        <br><b>Measures and Meta-Measures for the Supervised Evaluation of Image Segmentation</b><br>
+        <i>Computer Vision and Pattern Recognition (CVPR)</i>,
+        2013
+        <br />
+        <a href="javascript:toggleBibtex('Pont-Tuset2013')">[BibTeX]</a>
+        <a href="https://imatge.upc.edu/web/sites/default/files/pub/cPont-Tuset13.pdf" target="_blank">[PDF]</a> <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/seism/index.html" target="_blank">
+        [Project Page]</a>
+        </p>
+        <div id="bib_Pont-Tuset2013" class="bibtex noshow">
+        <pre>
+@inproceedings{Pont-Tuset2013,
+  author = {Pont-Tuset, J. and Marques, F.},
+  title = {Measures and Meta-Measures for the Supervised Evaluation of Image Segmentation},
+  booktitle = {Computer Vision and Pattern Recognition (CVPR)},
+  year = {2013}
+}
+        </pre>
+        </div>
+        </li>
+
+
+
+
+
+
+        </ul>
+        </div>
+        </div>
+			</div>	
+		</div>
+	</div>
+</section>
+
+<section class="content-box box-3" id="team">
+	<div class="zerogrid">
+		<div class="row wrap-box"><!--Start Box-->
+			<div class="header">
+				<h2>Team:</h2>
+				<article>
+					<div class="row">
+						<div class="col-1-5 t-center">
+							<div class="wrap-col">
+								<a href="http://jponttuset.github.io" target="_blank"><img src="images/Jordi.png" /></a>
+								<a href="http://jponttuset.github.io" target="_blank"><h3 style="margin: 20px;">Jordi Pont-Tuset</h3></a>
+								<!-- <p>Through her career, Linda has focused her efforts on building infrastructure around company operations and international expansion at startup companies.</p> -->
+							</div>
+						</div>
+						<div class="col-1-5 t-center">
+							<div class="wrap-col">
+								<a href="http://www.vision.ee.ethz.ch/~kmaninis/" target="_blank"><img src="images/Kevis.png" /></a>
+								<a href="http://www.vision.ee.ethz.ch/~kmaninis/" target="_blank"><h3 style="margin: 20px;">Kevis-Kokitsi Maninis</h3></a>
+								<!-- <p>Through her career, Linda has focused her efforts on building infrastructure around company operations and international expansion at startup companies.</p> -->
+							</div>
+						</div>
+						<div class="col-1-5 t-center">
+							<div class="wrap-col">
+								<a href="http://www.vision.ee.ethz.ch/~yuhchen/" target="_blank"><img width=100% src="images/yuhua.png" /></a>
+								<a href="http://www.vision.ee.ethz.ch/~yuhchen/" target="_blank"><h3 style="margin: 20px;">Yuhua Chen</h3></a>
+								<!-- <p>Through her career, Linda has focused her efforts on building infrastructure around company operations and international expansion at startup companies.</p> -->
+							</div>
+						</div>
+						<div class="col-1-5 t-center">
+							<div class="wrap-col">
+								<a href="https://sergicaelles.com/" target="_blank"><img src="images/Sergi.png" /></a>
+								<a href="https://sergicaelles.com/" target="_blank"><h3 style="margin: 20px;">Sergi Caelles</h3></a>
+<!-- 										<p>Through her career, Linda has focused her efforts on building infrastructure around company operations and international expansion at startup companies.</p> -->
+							</div>
+						</div>
+						<div class="col-1-5 t-center">
+							<div class="wrap-col">
+								<a href="https://www.vision.ee.ethz.ch/en/members/get_member.cgi?id=1" target="_blank"><img src="images/Luc.png" /></a>
+								<a href="https://www.vision.ee.ethz.ch/en/members/get_member.cgi?id=1" target="_blank"><h3 style="margin: 20px;">Luc Van Gool</h3></a>
+<!-- 										<p>Through her career, Linda has focused her efforts on building infrastructure around company operations and international expansion at startup companies.</p> -->
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-1-1 t-center" style="margin-top:20px;">
+							<h4>Collaborators: <a href="https://biomedicalcomputervision.uniandes.edu.co" target="_blank">Pablo Arbeláez</a>, <a href="https://graphics.ethz.ch/~perazzif/" target="_blank">Federico Perazzi</a>, <a href="http://www.vision.ee.ethz.ch/~daid/" target="_blank">Dengxin Dai</a>.</h4>
+					    </div>
+					</div>
+				</article>
+			</div>	
+		</div>
+	</div>
+</section>
+
+
+</div>
+</body></html>
+/readinggroup//readinggroup/

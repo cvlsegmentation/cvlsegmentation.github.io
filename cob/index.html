@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116539120-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-116539120-4');
+  </script>
+
+	<link rel="shortcut icon" href="images/icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Convolutional Oriented Boundaries">
+
+    <title>COB &ndash; Convolutional Oriented Boundaries</title>
+
+    <!-- Buttons -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/buttons/component.css" /> -->
+
+    <!-- Google analytics -->
+	<link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.6.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+    
+<!--     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
+</head>
+
+<style type="text/css">
+    /*********************************
+    The list of publication items
+    *********************************/
+    /* The list of items */
+    .biblist { }
+
+    /* The item */
+    .biblist li { }
+
+    /* You can define custom styles for plstyle field here. */
+
+
+    /*************************************
+     The box that contain BibTeX code
+     *************************************/
+    div.noshow { display: none; }
+    div.bibtex {
+        margin-right: 0%;
+        margin-top: 1.2em;
+        margin-bottom: 1.3em;
+        border: 1px solid silver;
+        padding: 0.3em 0.5em;
+        background: #ffffee;
+    }
+    div.bibtex pre { font-size: 75%; overflow: auto;  width: 100%; }
+
+
+    .content-subhead{color: black}
+</style>
+
+<script type="text/javascript">
+
+ // Toggle Display of BibTeX
+ function toggleBibtex(articleid) {
+     var bib = document.getElementById('bib_'+articleid);
+     if (bib) {
+         if(bib.className.indexOf('bibtex') != -1) {
+             bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex';
+         }
+     } else {
+         return;
+     }
+ }
+
+
+  function rotate_arrow(theta)
+  {
+      var rect = document.getElementById("im").getBoundingClientRect();
+      var imw = rect.width;
+      var imh = rect.height;
+
+      _move_arrow(imh,imw,theta);
+  }
+
+  function _move_arrow(imh,imw,theta)
+  {
+      var theta360 = theta;
+      if (theta < 0)
+        theta += Math.PI;
+
+      // Quantize to 0.1
+      var theta = (Math.round(theta*10)/10).toFixed(1);
+
+      document.getElementById("im").src = "ims/orient_" + theta + ".jpg"
+      document.getElementById("arrow").style = "position: absolute;rotate("+(theta360/Math.PI*180-90)+"deg) ;transform-origin:50% 50%;";
+      document.getElementById("arrow").style.WebkitTransform = "translateX(-"+imw*1.07+"px) translateX(-"+0+"px) rotate("+(theta360/Math.PI*180-90)+"deg)";
+      document.getElementById("arrow").style.MozTransform = "translateX(-"+imw*1.07+"px) translateX(-"+0+"px) rotate("+(theta360/Math.PI*180-90)+"deg)";
+	  document.getElementById("arrow").style.Transform = "translateX(-"+imw*1.07+"px) translateX(-"+0+"px) rotate("+(theta360/Math.PI*180-90)+"deg)";
+
+  }
+
+
+  function start()
+  {
+    var id = setInterval(frame, 20);
+    var curr_theta = Math.PI/2;
+    function frame()
+    {
+      rotate_arrow(curr_theta);
+      curr_theta = curr_theta+0.01;
+      if (curr_theta>Math.PI)
+        curr_theta = curr_theta-2*Math.PI;
+    }
+  }
+
+  // (function() {
+  //   "use strict";
+
+  //   document.onmousemove = handleMouseMove;
+  //   function handleMouseMove(event)
+  //   { 
+  //     // Get the center of rotation
+  //     var rect = document.getElementById("im").getBoundingClientRect();
+  //     var cx = rect.left;
+  //     var cy = rect.top + (rect.height*0.8);
+
+  //     // Get the mouse position
+  //     var mx = event.pageX;
+  //     var my = event.pageY;
+
+  //     // Get the orientation with respect to center
+  //     var theta = Math.atan2(cy-my,cx-mx);
+
+  //     // Update figure
+  //     rotate_arrow(theta);
+  //   }
+  // })();
+</script>
+
+
+<body onload="start()">
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+
+            <ul class="pure-menu-list">
+                <li><a class="pure-menu-link pure-menu-selected">Home</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="explore.html" class="pure-menu-link">Explore SoA</a></li>
+                <li><a href="code.html" class="pure-menu-link">Code &amp; Datasets</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Convolutional Oriented Boundaries</h1>
+            <h2>State-of-the-Art Contour Detection and Hierarchical Segmentation</h2>
+        </div>
+        <div class="content">
+			<div class="pure-g" style="margin-top:15px;">
+                <div class="pure-u-1-4" style="text-align:left;"><img src="images/logos-1.png" alt="" style="width:95%;margin-top:26px;"></div>
+                <div class="pure-u-1-4" style="text-align:center;"><a href="http://www.vision.ee.ethz.ch" target="_blank"><img src="images/logos-2.png" alt="" style="width:105%;margin-top:15px;margin-left:15%;"></a></div>
+                <div class="pure-u-1-4" style="text-align:center;"><a href="https://biomedicalcomputervision.uniandes.edu.co" target="_blank"><img src="images/uniandes.png" alt="" style="width:75%;margin-top:18px;margin-left:40%;"></a></div>
+                <div class="pure-u-1-4" style="text-align:right;"><a href="https://www.eureyecase.eu/" target="_blank"><img src="images/logos-3.png" alt="" style="width:50%;margin-top:20px;"></a></div>
+            </div><br>
+
+            <h2 class="content-subhead" style="margin-top:5px;margin-bottom:12px">Publications</h2>
+	    
+
+	    <div class="pure-g">
+                <div class="pure-u-5-6" style="width:16%">
+                    <img class="pure-img-responsive" style="margin-top:15px; width:95%;" src="images/PAMI_miniature.png" alt="PAMI">
+                </div>
+                <div class="pure-u-5-6" style="width:75%;">
+                <p style="margin-left:0.6cm;line-height: 1.4em;margin-top:1em;">
+                    <a href="http://www.vision.ee.ethz.ch/~kmaninis" target="_blank"/>K.K. Maninis</a>,
+                    <a href="http://jponttuset.github.io" target="_blank">J. Pont-Tuset</a>,
+                    <a href="https://biomedicalcomputervision.uniandes.edu.co/" target="_blank">P. Arbeláez</a>, and
+                    <a href="https://www.vision.ee.ethz.ch/en/members/get_member.cgi?id=1" target="_blank">L. Van Gool</a>
+                    <br>
+                    Convolutional Oriented Boundaries: From Image Segmentation to High-Level Tasks</h1><br>
+                    <i>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), vol. 40, no. 4, pp. 819 - 833, 2018.</i><br>
+                    [<a href="http://arxiv.org/abs/1701.04658v2" target="_blank">PDF</a>] [<a href="javascript:toggleBibtex('Man+18a')">BibTex</a>]
+                </p>
+                </div>
+            </div>
+            <div id="bib_Man+18a" class="bibtex noshow"><pre>@article{Man+18a,<br/>  author = {Kevis-Kokitsi Maninis and Jordi Pont-Tuset and Pablo Arbel\'{a}ez and Luc Van Gool},<br/>  title = {Convolutional Oriented Boundaries: From Image Segmentation to High-Level Tasks},<br/>  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)},<br/>  year = {2018},<br/>  volume = {40},<br>  number = {4},<br>  pages = {819 - 833}<br/>}</pre></div>
+
+
+            <div class="pure-g">
+                <div class="pure-u-5-6" style="width:16%">
+                    <img class="pure-img-responsive" style="margin-top:15px; width:100%;" src="images/ECCV_miniature.png" alt="ECCV">
+                </div>
+                <div class="pure-u-5-6" style="width:75%;">
+                <p style="margin-left:0.6cm;line-height: 1.4em;margin-top:1em;">
+                    <a href="http://www.vision.ee.ethz.ch/~kmaninis" target="_blank"/>K.K. Maninis</a>,
+                    <a href="http://jponttuset.github.io" target="_blank">J. Pont-Tuset</a>,
+                    <a href="https://biomedicalcomputervision.uniandes.edu.co/" target="_blank">P. Arbeláez</a>, and
+                    <a href="https://www.vision.ee.ethz.ch/en/members/get_member.cgi?id=1" target="_blank">L. Van Gool</a>
+                    <br>
+                    Convolutional Oriented Boundaries</h1><br>
+                    <i>European Conference on Computer Vision (ECCV) 2016</i><br>
+                    [<a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/cob/data/COB_ECCV16.pdf" target="_blank">PDF</a>] [<a href="javascript:toggleBibtex('Man+16')">BibTex</a>]
+                </p>
+                </div>
+            </div>
+            <div id="bib_Man+16" class="bibtex noshow"><pre>@inproceedings{Man+16a,<br/>  author = {Kevis-Kokitsi Maninis and Jordi Pont-Tuset and Pablo Arbel\'{a}ez and Luc Van Gool},<br/>  title = {Convolutional Oriented Boundaries},<br/>  booktitle = {European Conference on Computer Vision (ECCV)},<br/>  year = {2016}<br/>}</pre></div>
+
+
+
+
+<!--  -->
+
+
+
+
+
+
+            <i>Please cite these papers if you found the resources of this web useful.</i>
+
+
+        <h2 class="content-subhead" style="margin-top:33px;margin-bottom:0px">Abstract</h2>
+        <p align="justify" style="font-size:90%;margin-top:10px">
+        This paper presents Convolutional Oriented Boundaries (COB), which produces multiscale oriented contours and region hierarchies starting from generic image classification CNNs. COB is computationally efficient, because it requires a single CNN forward pass for contour detection and uses a novel sparse boundary representation for hierarchical segmentation; it gives a significant leap in performance over the state-of-the-art, and it generalizes very well to unseen categories and datasets. We perform extensive experiments on BSDS, PASCAL Context, PASCAL Segmentation, and MS-COCO, showing that COB provides state-of-the-art contours, region hierarchies, and object proposals.
+        </p>
+
+        <!--<center>
+         <h3 class="content-subhead" style="margin-top:33px; margin-bottom:-2px;">Click on the image to see DRIU detections</h3>
+         <div class="pure-g">
+                <div class="pure-u-1-1">
+                  <img id="zoom_07"  src="img/01_test.png" data-zoom-image="img/01_test_overlay.png"/>
+                </div>
+        /div></center> 
+        < -->
+           
+       <h2 class="content-subhead" style="margin-top:33px;margin-bottom:30px">Demo of the Detected Orientations, UCM, and Object Proposal</h2>
+       
+       <div class="pure-g">
+           <div class="pure-u-1-1" style="text-align:center;">
+                <img style="border:1px solid black"  src="ims/orient_1.6.jpg" width="48%" id="im">
+                <img style="position: absolute;" src="ims/arrow.png" id="arrow" width="5%">
+            </div>
+           <div class="pure-u-1-2" style="text-align:center;">
+              <img style="border:1px solid black" src="ims/2010_005731_ucm.png" width="96%">
+           </div>
+           <div class="pure-u-1-2" style="text-align:center;">
+              <img style="border:1px solid black" src="ims/2010_005731_prop.png" width="96%">
+           </div>
+        </div>
+        Top row: Contour response at different orientations. Bottom row: Hierarchical segmentation (UCM) and best segmented object proposal.
+
+
+
+        <h2 class="content-subhead" style="margin-bottom:0px">Benchmark State of the Art</h2>
+            <p style="margin-top:10px">
+                Display the quantitative evaluation of the current State-of-the-Art techniques in PASCAL Context.
+            </p>
+
+            <h2 class="content-subhead" style="margin-bottom:0px">Explore State of the Art</h2>
+            <p style="margin-top:10px">
+                Qualitatively compare current State-of-the-Art techniques in PASCAL Context.
+            </p>
+
+            <h2 class="content-subhead" style="margin-bottom:0px;margin-top:35px;">Code &amp; Pre-Computed Results</h2>
+            <p style="margin-top:10px;">
+                Download the COB code and pre-computed COB segmentations and proposals in a variety of popular datasets: BSDS500, MS-COCO, PASCAL, etc.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<script src="js/ui.js"></script>
+
+</body>
+</html>
+

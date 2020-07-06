@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<link rel="shortcut icon" href="images/icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:100,300' rel='stylesheet' type='text/css'>
+    <meta name="description" content="Convolutional Oriented Boundaries">
+
+    <title>COB &ndash; Convolutional Oriented Boundaries</title>
+
+    <!-- Buttons -->
+    <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.6.0/pure-min.css">
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <!--<![endif]-->
+
+    <link rel="stylesheet" href="css/font-awesome-4.3.0/css/font-awesome.min.css">
+
+
+    <!--Includes-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+    <style type="text/css">
+    /*********************************
+    The list of publication items
+    *********************************/
+    /* The list of items */
+    .biblist { }
+
+    /* The item */
+    .biblist li { }
+
+    /* You can define custom styles for plstyle field here. */
+
+
+    /*************************************
+     The box that contain BibTeX code
+     *************************************/
+    div.noshow { display: none; }
+    div.bibtex {
+        margin-right: 0%;
+        margin-top: 1.2em;
+        margin-bottom: 1.3em;
+        border: 1px solid silver;
+        padding: 0.3em 0.5em;
+        background: #ffffee;
+    }
+    div.bibtex pre { font-size: 75%; overflow: auto;  width: 100%; }
+       .content-subhead{color: black}
+
+
+    button.btn {
+        width:90%;
+    }
+
+    td.firstcol{
+        width:16%; line-height: 97%;
+    }
+
+    td.othercol{
+        width:14%; line-height: 97%; text-align:center;
+    }
+
+    div.dbheader{
+        font-weight: 700;
+        margin-top: 8px;
+        line-height: 90%;
+    }
+
+</style>
+
+<script type="text/javascript">
+ <!--
+ // Toggle Display of BibTeX
+ function toggleBibtex(articleid) {
+     var bib = document.getElementById('bib_'+articleid);
+     if (bib) {
+         if(bib.className.indexOf('bibtex') != -1) {
+             bib.className.indexOf('noshow') == -1?bib.className = 'bibtex noshow':bib.className = 'bibtex';
+         }
+     } else {
+         return;
+     }
+ }
+-->
+</script>
+</head>
+
+
+<body>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <ul class="pure-menu-list">
+                <li><a href="index.html" class="pure-menu-link">Home</a></li>
+                <li><a href="soa_compare.html" class="pure-menu-link">Benchmark SoA</a></li>
+                <li><a href="explore.html" class="pure-menu-link">Explore SoA</a></li>
+                <li><a class="pure-menu-link pure-menu-selected">Code &amp; Datasets</a></li>
+                <li><a href="contact.html" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Code &amp; Datasets</h1>
+            <h2>COB code and pre-computed results</h2>
+        </div>
+
+        <div class="content" style="margin-top: 1cm;">
+
+        <h2 class="content-subhead">Code, Models, and PASCAL Context splits</h2>
+            <div class="pure-g">
+               <div class="pure-u-1-4" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:20px;">
+                    <div class="dbheader">COB Code</div>
+               </div>
+               <div class="pure-u-3-4" style="text-align:center;font-family: 'Raleway', sans-serif;margin-bottom:10px;">
+                	<div style="margin-right:12px;">
+                    <a href="https://github.com/kmaninis/COB" target="_blank"><button class="btn btn-6 btn-6a" style="width: 98.5%;margin-top:10px;">Github Repository</button></a>
+                  </div>
+               </div>
+               
+               <div class="pure-u-1-4" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:20px;">
+                    <div class="dbheader">COB Models</div>Trained on:
+               </div>
+	            <div class="pure-u-3-4" style="text-align:center;font-family: 'Raleway', sans-serif;margin-top:-12px;">
+                	<div style="margin-right:12px;">
+            			<div class="pure-g">
+		             		<div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		                 		<a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Downloads/COB_PASCALContext_train.zip"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:10px;">VOC Train</button></a>
+		             		</div>
+		             		<div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		                 		<a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Downloads/COB_PASCALContext_trainval.zip"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:10px;">VOC TrainVal</button></a>
+		             		</div>
+		             		<div class="pure-u-1-3" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		                 		<a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Downloads/COB_BSDS500.zip"><button class="btn btn-6 btn-6a" style="width: 95%;margin-top:10px;">BSDS TrainVal</button></a>
+		             		</div>
+                  	</div>
+                  </div>
+                </div>
+                <div class="pure-u-1-4" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:-5px;">
+                    
+               </div>
+                <div class="pure-u-3-4" style="text-align:center;font-family: 'Raleway', sans-serif;margin-top:-12px;">
+                	<div style="margin-right:12px;">
+            			<div class="pure-g">
+		             		<div class="pure-u-1-2" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		                 		<a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Downloads/COB_NYUD-v2_RGBHHA.zip"><button class="btn btn-6 btn-6a" style="width: 97%;margin-top:10px;">NYUD-v2 Train (RGB-D)</button></a>
+		             		</div>
+		             		<div class="pure-u-1-2" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		                 		<a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Downloads/COB_SegVOC12.zip"><button class="btn btn-6 btn-6a" style="width: 97%;margin-top:10px;">PASCAL Seg. '12 train</button></a>
+		             		</div>
+                  	</div>
+                  </div>
+                </div>
+		          <div class="pure-u-1-4" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:20px;">
+                    <div class="dbheader">PASCAL Context Splits</div>
+		          </div>
+                <div class="pure-u-3-4" style="text-align:center;font-family: 'Raleway', sans-serif;">
+                	<div style="margin-right:12px;text-align:center;">
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Downloads/PASCALContext_splits.tgz" ><button class="btn btn-6 btn-6a" style="width: 98.5%;margin-top:10px;">VOC Train, Val, and Test</button></a>
+                	</div>
+                </div>  
+           </div>
+<!--            Note: The PASCAL Context VOC val split does not overlap with SBD val set.
+ -->            
+		  
+
+       <h2 class="content-subhead">Pre-Computed COB Results</h2>
+
+       <table style="margin-top:30px">
+            <tr>
+                <td class="firstcol">
+                </td>
+                <td class="othercol">
+                    Proposals
+                </td>
+                <td class="othercol">
+                    UCMs
+                </td>
+                <td class="othercol">
+                    Boxes
+                </td>
+            <tr>
+                <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader">BSDS500</div>train+val+test: 500 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-BSDS500-trainvaltest-proposals.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">67.6 MB</td></table>   
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-BSDS500-trainvaltest-ucm.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">61.6 MB</td></table>   
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-BSDS500-trainvaltest-boxes.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">7.1 MB</td></table>   
+                    </button></a>
+                </td>
+            <tr>
+                <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader">PASCAL Context</div>train+val: 10103 im.
+                </td>
+                               <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-PASCALContext-trainval-proposals.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.7 GB</td></table>   
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-PASCALContext-trainval-ucm.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.4 GB</td></table>   
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-PASCALContext-trainval-boxes.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">148 MB</td></table>   
+                    </button></a>
+                </td>
+              
+            <tr>
+                <td>
+                    <div class="dbheader">PASCAL Seg. '12</div>train+val+test: 4369 im.
+                </td>
+                               <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Segmentation_trainvaltest_2012-proposals.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">733 MB</td></table>   
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Segmentation_trainvaltest_2012-ucm.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">607 MB</td></table>   
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Segmentation_trainvaltest_2012-boxes.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">64 MB</td></table>   
+                    </button></a>
+                </td>
+              
+            <tr>
+            <tr>
+                <td>
+                    <div class="dbheader">PASCAL Seg. '12 <font color="red">(NEW)</font></div><font color="red">Object Boundaries</font>
+                </td>
+                               <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Segmentation_trainvaltest_2012-Obj-proposals.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">407 MB</td></table>   
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Segmentation_trainvaltest_2012-Obj-ucm.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">563 MB</td></table>   
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Segmentation_trainvaltest_2012-Obj-boxes.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">55 MB</td></table>   
+                    </button></a>
+                </td>
+              
+            <tr>
+                <td>
+                    <div class="dbheader">PASCAL Main 2012</div>train+val+test: 22531 im.
+                </td>
+                                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Main_trainvaltest_2012-proposals.tgz">
+                    <button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">3.8 GB</td></table>   
+                    </button>
+                    </a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Main_trainvaltest_2012-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">3.1 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Main_trainvaltest_2012-boxes.tgz"><button class="btn btn-6 btn-6a">
+                        <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">332 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td>
+                    <div class="dbheader">PASCAL Main 2007</div>train+val+test: 9963 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Main_trainvaltest_2007-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.8 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Main_trainvaltest_2007-ucm.tgz"><button class="btn btn-6 btn-6a" style="width:90%">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.3 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-Pascal-Main_trainvaltest_2007-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">150 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                  <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader">NYUD-v2 <font color="red">(NEW)</font></div>train+val: 1449 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-NYUD-v2-all-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">579 MB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-NYUD-v2-all-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">254 MB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-NYUD-v2-all-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">26 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader">SBD</div>train+val: 11355 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-SBD-trainval-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.9 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-SBD-trainval-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.6 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-SBD-trainval-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">167 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader">MS COCO</div>train 2014: 82783 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-train2014-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">15.7 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-train2014-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">18.2 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-train2014-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.2 GB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td>
+                    <div class="dbheader">MS COCO</div>val 2014: 40504 im.
+                </td>
+                 <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-val2014-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">7.7 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-val2014-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">8.9 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-val2014-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">583 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td>
+                    <div class="dbheader">MS COCO</div>test 2014: 40775 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-test2014-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">7.6 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-test2014-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">9.0 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-test2014-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">586 MB</td></table>
+                    </button></a>
+                </td>
+                 <tr>
+                <td>
+                    <div class="dbheader">MS COCO</div>test 2015: 81434 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-test2015-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">15.2 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-test2015-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">17.9 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-COCO-test2015-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">1.1 GB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader">ILSVRC Det. 2013</div>val: 20121 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-ILSVRC-ILSVRC2013_DET_val-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">3.1 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-ILSVRC-ILSVRC2013_DET_val-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">3.2 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-ILSVRC-ILSVRC2013_DET_val-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">283 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td>
+                    <div class="dbheader">ILSVRC Det. 2013</div>test: 40152 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-ILSVRC-ILSVRC2013_DET_test-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">6.1 GB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-ILSVRC-ILSVRC2013_DET_test-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">6.4 GB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-ILSVRC-ILSVRC2013_DET_test-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">563 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+                <td colspan="4"><hr style="margin-left:3px;margin-right:15px;border-bottom: 1px solid #999;border-top: 0px;border-right: 0px;border-left: 0px;"></td>
+            <tr>
+                <td>
+                    <div class="dbheader"><a style="text-decoration:none" target="_blank" href="https://graphics.ethz.ch/~perazzif/davis/">DAVIS</a></div>all: 3455 im.
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-DAVIS-all-proposals.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">631 MB</td></table>
+                    </button></a>
+                  </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-DAVIS-all-ucm.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">940 MB</td></table>
+                    </button></a>
+                </td>
+                <td>
+                    <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/COB-DAVIS-all-boxes.tgz"><button class="btn btn-6 btn-6a">
+                    <table style="width:100%;"><td style="text-align:center;width:20%;"><i class="fa fa-cloud-download"></i></td><td style="text-align:center;width:80%;">50 MB</td></table>
+                    </button></a>
+                </td>
+            <tr>
+        </table>
+        
+        <h2 class="content-subhead">COB Results for High-Level Tasks <font color="red">(NEW)</font></h2>
+         <div class="pure-g">
+				  <div class="pure-u-1-2" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:10px;">
+				     <div class="dbheader">Semantic Contours</div>SBD val: 2857 im.
+				  </div>
+				  <div class="pure-u-1-2" style="text-align:center;font-family: 'Raleway', sans-serif;">
+				 	<div style="margin-right:12px;text-align:center;">
+				     <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/HighLevel/SemCont-COB-dil.tgz" ><button class="btn btn-6 btn-6a" style="width: 98.5%;margin-top:10px;"><i class="fa fa-cloud-download"></i> &nbsp; 26 MB</button></a>
+				 	</div>
+				  </div>
+				  
+				  <div class="pure-u-1-2" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:10px;">
+		        <div class="dbheader">Semantic Segmentation</div>PASCAL Seg '12 val: 1449 im.
+		     </div>
+		     <div class="pure-u-1-2" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		    	<div style="margin-right:12px;text-align:center;">
+		        <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/HighLevel/SemSeg-COB.tgz" ><button class="btn btn-6 btn-6a" style="width: 98.5%;margin-top:10px;"><i class="fa fa-cloud-download"></i>&nbsp; 4 MB</button></a>
+		    	</div>
+		     </div>
+		     
+		     <div class="pure-u-1-2" style="text-align:left;font-family: 'Raleway', sans-serif;margin-top:10px;">
+		        <div class="dbheader">Object Detection</div>PASCAL Main 2007 test: 4952 im.
+		     </div>
+		     <div class="pure-u-1-2" style="text-align:center;font-family: 'Raleway', sans-serif;">
+		    	<div style="margin-right:12px;text-align:center;">
+		        <a href="https://data.vision.ee.ethz.ch/kmaninis/share/COB/Precomputed/HighLevel/ObjDet-COB-fast-rcnn.tgz" ><button class="btn btn-6 btn-6a" style="width: 98.5%;margin-top:10px;"><i class="fa fa-cloud-download"></i>&nbsp; 70 MB</button></a>
+		    	</div>
+		     </div> 
+		     
+		     
+        </div>
+       
+
+    </div>
+</div>
+
+<script src="js/ui.js"></script>
+</body>
+
+</html>
+
+

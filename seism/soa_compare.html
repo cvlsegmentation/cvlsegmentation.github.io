@@ -75,7 +75,7 @@
                     <div id="plot_fop" class="pure-u-1-2" style="font-family: 'Raleway', sans-serif; margin-bottom: 0mm;">
                     </div>
                 </div>
-                <i>For an updated comparison on PASCAL Context, visit the <a href="http://www.vision.ee.ethz.ch/~cvlsegmentation/cob/soa_compare.html" target="_blank">COB website</a>.</i>
+                <i>For an updated comparison on PASCAL Context, visit the <a href="https://cvlsegmentation.github.io/cob/soa_compare.html" target="_blank">COB website</a>.</i>
 
                 <h3 style="margin-top:30px;margin-bottom:1px;">Legend</h3>
                 <ul id="legend_text">
